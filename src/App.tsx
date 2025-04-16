@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/Navbar/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 import Homepage from "./components/Homepage/Homepage";
 import Home from "./components/Home/Home";
 import SucheFilter from "./components/SucheFilter/SucheFilter";
@@ -15,9 +15,9 @@ const App = () => {
       <NavBar />
       <Homepage />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/suche-filter" element={<SucheFilter />} />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/homepage" element={<Homepage />} />
+        <Route path="/suchefilter" element={<SucheFilter />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/kontakt" element={<Kontakt />} />
         <Route path="/anmelden" element={<Anmelden />} />
