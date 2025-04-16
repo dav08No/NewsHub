@@ -1,11 +1,11 @@
 import React from 'react'
 import './App.css'
-import Homepage from './components/Homepage/Homepage'
+import AboutUs from './components/AboutUs/AboutUs'
 
 const App = () => {
 
   return (
-    <Homepage />
+    <AboutUs />
   )
 }
 
