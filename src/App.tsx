@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Homepage from "./components/Homepage/Homepage";
 import SucheFilter from "./components/SucheFilter/SucheFilter";
