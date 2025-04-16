@@ -9,13 +9,13 @@ li {
     margin: 0 15px;
 }
 
-li.Home a {
+li.Homepage a {
     color: blue;
     font-weight: bold;
     text-decoration: none;
     
 }
-li.Suche-Filter a {
+li.SucheFilter a {
     color: blue;
     font-weight: bold;
     text-decoration: none;
@@ -41,8 +41,4 @@ li.Anmelden a {
 
 li a:hover {
     text-decoration: underline;
-}
-
-html {
-    scroll-behavior: smooth;
 }

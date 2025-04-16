@@ -11,10 +11,8 @@ const App = () => {
   return (
     <Router>
       <NavBar />
-      <Homepage />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/homepage" element={<Homepage />} />
         <Route path="/suchefilter" element={<SucheFilter />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/kontakt" element={<Kontakt />} />
