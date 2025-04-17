@@ -4,7 +4,7 @@ const AboutUs = () => {
     <>
         <br></br>
         <div className="WebsiteTitle">
-            <h1>About Us</h1>
+            <h1>Über Uns</h1>
         </div>
         <br></br><br></br><br></br>
         <div className="UnserTeam">

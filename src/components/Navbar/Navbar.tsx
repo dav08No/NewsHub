@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
-import "./NavBar.css"
+import "./NavBar.css";
+
 const NavBar = () => {
   return (
     <ul>
@@ -9,15 +10,15 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/suchefilter" className={({ isActive }) => (isActive ? "active" : "")}>
-          Suche-Filter
+        <NavLink to="/suche" className={({ isActive }) => (isActive ? "active" : "")}>
+          Suche
         </NavLink>
       </li>
       <li>
-        <NavLink to="/aboutus" className={({ isActive }) => (isActive ? "active" : "")}>
-          About Us
+        <NavLink to="/überuns" className={({ isActive }) => (isActive ? "active" : "")}>
+          Über Uns
         </NavLink>
-      </li>
+      </li> 
       <li>
         <NavLink to="/kontakt" className={({ isActive }) => (isActive ? "active" : "")}>
           Kontakt
