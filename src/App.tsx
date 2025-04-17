@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Homepage from "./components/Homepage/Homepage";
 import SucheFilter from "./components/SucheFilter/SucheFilter";
@@ -14,8 +13,8 @@ const App = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/suchefilter" element={<SucheFilter />} />
-        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/suche" element={<SucheFilter />} />
+        <Route path="/überuns" element={<AboutUs />} />
         <Route path="/kontakt" element={<Kontakt />} />
         <Route path="/anmelden" element={<Anmelden />} />
       </Routes>
