@@ -2,10 +2,11 @@ import './AboutUs.css'
 const AboutUs = () => {
     return (
     <>
+        <br></br>
         <div className="WebsiteTitle">
             <h1>About Us</h1>
         </div>
-        <br></br>
+        <br></br><br></br><br></br>
         <div className="UnserTeam">
             <h3>Unser Team</h3>
         </div>

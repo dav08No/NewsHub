@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/Navbar/Navbar";
+import { NavLink } from "react-router-dom";
+import NavBar from "./components/NavBar/NavBar";
 import Homepage from "./components/Homepage/Homepage";
 import SucheFilter from "./components/SucheFilter/SucheFilter";
 import AboutUs from "./components/AboutUs/AboutUs";
@@ -11,7 +12,6 @@ const App = () => {
   return (
     <Router>
       <NavBar />
-      
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/suchefilter" element={<SucheFilter />} />

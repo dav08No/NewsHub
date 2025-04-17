@@ -1,19 +1,36 @@
 .WebsiteTitle {
     text-align: center;
+    border: 1px solid black;
+    margin-left: 500px;
+    margin-right: 500px;
+    align-items: center;
 }
 
 .UnserTeam {
-    margin-left: 500px;
+    margin-left: 400px;
+    border: 1px solid black;
+    text-align: center; /* Oder: text-align: start; */
+    width: 500px;
 }
+
 .UnserProjekt {
-    margin-left:1250px;
-    margin-top: -40px;
+    margin-top: -60px;
+    margin-left:1200px;
+    width: 500px;
+    border: 1px solid black;
+    text-align: center;
 }
 .TextTeam {
-    margin-top: ;
-    margin-left: ;
+    margin-top: 20px;
+    margin-left: 400px;
+    width: 500px;
+    border: 1px solid black;
+    text-align: center;
 }
 .TextProjekt {
-    margin-top: ;
-    margin-left: ;
+    margin-top: -50px;
+    margin-left: 1200px;
+    width: 500px;
+    border: 1px solid black;
+    text-align: center;
 }

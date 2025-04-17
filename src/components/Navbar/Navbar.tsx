@@ -1,15 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './NavBar.css';
-
+import { NavLink } from "react-router-dom";
+import "./NavBar.css"
 const NavBar = () => {
   return (
     <ul>
-      <li className="Homepage"><Link to="/homepage">Homepage</Link></li>
-      <li className="SucheFilter"><Link to="/suchefilter">Suche-Filter</Link></li>
-      <li className="AboutUs"><Link to="/aboutus">AboutUs</Link></li>
-      <li className="Kontakt"><Link to="/kontakt">Kontakt</Link></li>
-      <li className="Anmelden"><Link to="/anmelden">Anmelden</Link></li>
+      <li>
+        <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+          Homepage
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/suchefilter" className={({ isActive }) => (isActive ? "active" : "")}>
+          Suche-Filter
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/aboutus" className={({ isActive }) => (isActive ? "active" : "")}>
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/kontakt" className={({ isActive }) => (isActive ? "active" : "")}>
+          Kontakt
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/anmelden" className={({ isActive }) => (isActive ? "active" : "")}>
+          Anmelden
+        </NavLink>
+      </li>
     </ul>
   );
 };
