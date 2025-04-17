@@ -9,7 +9,7 @@
 .UnserTeam {
     margin-left: 400px;
     border: 1px solid black;
-    text-align: center; /* Oder: text-align: start; */
+    text-align: center;
     width: 500px;
 }
 
