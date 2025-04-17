@@ -4,13 +4,6 @@ import "./NavBar.css";
 const NavBar: React.FC = () => {
   return (
     <ul>
-<<<<<<< HEAD
-      <li className="Homepage"><Link to="/">Homepage</Link></li>
-      <li className="SucheFilter"><Link to="/suchefilter">Suche-Filter</Link></li>
-      <li className="AboutUs"><Link to="/aboutus">AboutUs</Link></li>
-      <li className="Kontakt"><Link to="/kontakt">Kontakt</Link></li>
-      <li className="Anmelden"><Link to="/anmelden">Anmelden</Link></li>
-=======
       <li>
         <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
           Homepage
@@ -25,7 +18,7 @@ const NavBar: React.FC = () => {
         <NavLink to="/überuns" className={({ isActive }) => (isActive ? "active" : "")}>
           Über Uns
         </NavLink>
-      </li> 
+      </li>
       <li>
         <NavLink to="/kontakt" className={({ isActive }) => (isActive ? "active" : "")}>
           Kontakt
@@ -36,7 +29,6 @@ const NavBar: React.FC = () => {
           Anmelden
         </NavLink>
       </li>
->>>>>>> 6bbc25baba6fb08503952ab5fcfa654fd325a088
     </ul>
   );
 };
