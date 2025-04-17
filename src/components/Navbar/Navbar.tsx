@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/suche" className={({ isActive }) => (isActive ? "active" : "")}>
+        <NavLink to="/filter" className={({ isActive }) => (isActive ? "active" : "")}>
           Suche
         </NavLink>
       </li>
