@@ -1,8 +1,9 @@
 import React from 'react'
+import "./SucheFilter.css";
 
 const SucheFilter: React.FC = () => {
   return (
-    <div>SucheFilter</div>
+    <h1>Suche</h1>
   )
 }
 
