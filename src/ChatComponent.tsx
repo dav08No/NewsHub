@@ -1,5 +1,4 @@
 import * as React from "react";
-import { LuBot, LuSendHorizontal } from "react-icons/lu";
 import useChatbot from "./components/hooks/useChatbot";
 import Markdown from "react-markdown";
 import useChatScroll from "./components/hooks/useChatScroll";
@@ -29,7 +28,7 @@ const ChatComponent: React.FunctionComponent = () => {
   return (
     <div className="chat-container">
       <h2 className="chat-header">
-        Chatbot <LuBot size={25} />
+        Chatbot
       </h2>
 
       <div ref={ref} className="chat-messages">
@@ -60,7 +59,7 @@ const ChatComponent: React.FunctionComponent = () => {
           className={`chat-send-btn ${isSending ? "chat-send-btn-disabled" : ""}`}
           disabled={isSending}
         >
-          <LuSendHorizontal size={25} />
+          Senden
         </button>
       </div>
     </div>

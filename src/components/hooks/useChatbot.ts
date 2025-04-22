@@ -17,7 +17,7 @@ const useChatbot = () => {
     setLoading(true);
 
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" }); // or gemini-1.5-flash
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
       const result = await model.generateContent(message);
       const response = await result.response.text();
 
