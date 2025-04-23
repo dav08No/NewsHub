@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
   return (
     <ul>
       <li>
@@ -10,7 +10,7 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/suche" className={({ isActive }) => (isActive ? "active" : "")}>
+        <NavLink to="/filter" className={({ isActive }) => (isActive ? "active" : "")}>
           Suche
         </NavLink>
       </li>
@@ -18,7 +18,7 @@ const NavBar = () => {
         <NavLink to="/überuns" className={({ isActive }) => (isActive ? "active" : "")}>
           Über Uns
         </NavLink>
-      </li> 
+      </li>
       <li>
         <NavLink to="/kontakt" className={({ isActive }) => (isActive ? "active" : "")}>
           Kontakt

@@ -1,6 +1,6 @@
 import * as React from "react";
 import useChatbot from "./components/hooks/useChatbot";
-import Markdown from "react-markdown";
+import Markdown from 'react-markdown'
 import useChatScroll from "./components/hooks/useChatScroll";
 
 const ChatComponent: React.FunctionComponent = () => {
@@ -35,9 +35,8 @@ const ChatComponent: React.FunctionComponent = () => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`chat-bubble ${
-              msg.sender === "user" ? "chat-bubble-user" : "chat-bubble-bot"
-            }`}
+            className={`chat-bubble ${msg.sender === "user" ? "chat-bubble-user" : "chat-bubble-bot"
+              }`}
           >
             <Markdown>{msg.text}</Markdown>
           </div>

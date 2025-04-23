@@ -116,7 +116,7 @@ p {
   padding: 20px;
   width: fit-content;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .textProjekt:hover {
   transform: translateY(-3px);
@@ -136,10 +136,13 @@ p {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: 20px;
 }
+.description:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
 .pepole {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 Spalten */
-  grid-template-rows: auto auto; /* 2 Zeilen */
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   justify-items: center;
 }
