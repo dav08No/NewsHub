@@ -12,10 +12,33 @@ li {
     position: relative;
 }
 
-li a {
-    display: inline-block;
-    padding: 10px 20px;
-    color: black;
+li.Home a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: none;
+
+}
+
+li.Suche-Filter a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+li.AboutUs a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+li.Kontakt a {
+    color: blue;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+li.Anmelden a {
+    color: blue;
     font-weight: bold;
     text-decoration: none;
     background-color: #f0f0f0;

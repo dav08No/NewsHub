@@ -1,54 +1,6 @@
-import { useRef, useState } from "react";
-import "./Kontakt.css"; // Importing CSS for styling
- 
-const Contact: React.FC = () => {
-  // Reference to the form element for resetting after submission
-  const formRef = useRef<HTMLFormElement | null>(null);
- 
-  // State to manage form input values
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
- 
-  // State to store email validation error message
-  const [emailError, setEmailError] = useState("");
- 
-  // Function to validate email format (must end with @swisscom.com)
-  const validateEmail = (email: string) => /^[a-zA-Z0-9._%+-]+@swisscom\.com$/.test(email);
- 
-  // Handler for form input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
- 
-    // Validate email field and update error state accordingly
-    if (name === "email") {
-      setEmailError(validateEmail(value) ? "" : "Please enter a valid @swisscom.com email address");
-    }
-  };
- 
-  // Form submission handler
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent default form submission behavior
- 
-    // Ensure email is valid before proceeding
-    if (!validateEmail(formData.email)) {
-      return setEmailError("Please enter a valid @swisscom.com email address");
-    }
- 
-    // Prepare form data for submission
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...formData, access_key: "73708533-49e0-4eb5-a5b0-d72d37d1cc78" }),
-    }).then((res) => res.json());
- 
-    // Check if the submission was successful
-    if (response.success) {
-      console.log("Success", response);
-      formRef.current?.reset(); // Reset form fields
-      setFormData({ name: "", email: "", message: "" }); // Clear form state
-    }
-  };
- 
+import React from 'react'
+
+const Kontakt: React.FC = () => {
   return (
     <div className="contact-container">
       <h1 className="contact-header">Kontaktieren Sie Uns</h1>

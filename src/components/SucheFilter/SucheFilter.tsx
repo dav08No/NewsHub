@@ -1,7 +1,7 @@
 import React from 'react'
 import "./SucheFilter.css";
 
-const SucheFilter = () => {
+const SucheFilter: React.FC = () => {
   return (
     <h1>Suche</h1>
   )
