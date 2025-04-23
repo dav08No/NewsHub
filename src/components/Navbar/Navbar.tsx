@@ -25,8 +25,8 @@ const NavBar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/anmelden" className={({ isActive }) => (isActive ? "active" : "")}>
-          Anmelden
+        <NavLink to="/chatbot" className={({ isActive }) => (isActive ? "active" : "")}>
+          Chat Bot
         </NavLink>
       </li>
     </ul>
