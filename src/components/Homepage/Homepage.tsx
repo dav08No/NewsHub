@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Homepage.css';
+import { Link } from 'react-router-dom';
 
 // Define the structure of an article item
 type ArticleType = {
@@ -22,9 +23,10 @@ const Homepage: React.FC = () => {
 
   // Array of API keys to use in case one hits its rate limit
   const apiKeys = [
-    'pub_808525d68114469f62b1f6a43852d9efefa5e',
-    'pub_811242e708de4442cba69eb51a033854b4acd',
-    'pub_811282fa4967114ded81a5e6113a43759389d'
+    'pub_808525d68114469f62b1f6a43852d9efefa5e', // Davide
+    'pub_811242e708de4442cba69eb51a033854b4acd', // Fabian
+    'pub_811282fa4967114ded81a5e6113a43759389d', // Joel
+    'pub_81184c0cf9b608ff16835478331619519d935' // Davide
   ];
 
   useEffect(() => {
@@ -122,11 +124,18 @@ const Homepage: React.FC = () => {
         articles
           .filter(article => !!article.image_url) // Only articles with an Imageurl
           .map((art, index) => (
-            <div className='articles-container' key={art.id} id={index.toString()}>
-              <h1 className='article-title'>{art.title}</h1>
-              <img className='article-img' src={art.image_url} />
-              <p className='article-categorys'>{art.category.join(', ')}</p>
-            </div>
+            <Link
+              to={`/article/${index}`}
+              state={{ article: art }}
+              className="article-link"
+              key={art.id}
+            >
+              <div className='articles-container' key={art.id} id={index.toString()}>
+                <h1 className='article-title'>{art.title}</h1>
+                <img className='article-img' src={art.image_url} />
+                <p className='article-categorys'>{art.category.join(', ')}</p>
+              </div>
+            </Link>
           ))
       ) : (
         // Fallback message if no articles are available
