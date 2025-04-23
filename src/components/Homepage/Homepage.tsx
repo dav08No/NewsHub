@@ -3,7 +3,7 @@ import './Homepage.css';
 import { Link } from 'react-router-dom';
 
 // Define the structure of an article item
-type ArticleType = {
+export type ArticleType = {
   id: string;
   title: string;
   link: string;
@@ -13,6 +13,7 @@ type ArticleType = {
   language?: string;
   source_name: string;
   source_link: string;
+  country: string[]
 };
 
 const Homepage: React.FC = () => {
@@ -26,7 +27,11 @@ const Homepage: React.FC = () => {
     'pub_808525d68114469f62b1f6a43852d9efefa5e', // Davide
     'pub_811242e708de4442cba69eb51a033854b4acd', // Fabian
     'pub_811282fa4967114ded81a5e6113a43759389d', // Joel
-    'pub_81184c0cf9b608ff16835478331619519d935' // Davide
+    'pub_81184c0cf9b608ff16835478331619519d935', // Davide
+    'pub_82495cbea35080abad1e930ac1d03d2e3120a', // Flurin / Minion
+    'pub_82499e416d9e96f438501b7195d708f135d86', // Flurin / Minion
+    'pub_825006980031d31dab6b2d91aced6dce9ebb3', // Leon
+    'pub_825019d0afdcc7b687fe5f2511c087911deab' // Flurin / Minion
   ];
 
   useEffect(() => {
@@ -93,7 +98,8 @@ const Homepage: React.FC = () => {
           image_url: article.image_url,
           language: article.language,
           source_name: article.source_name,
-          source_link: article.source_link
+          source_link: article.source_link,
+          country: article.country
         };
 
         // Avoid adding duplicate titles

@@ -18,6 +18,7 @@ const Detailview: React.FC = () => {
       <img src={article.image_url} alt={article.title} />
 
       <p>Kategorie: {article.category.join(", ")}</p>
+      <p>Countys: {article.country.join(", ")}</p>
 
       <p>{article.description}</p>
 
