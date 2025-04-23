@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import Select from 'react-select';
+import countriesData from './countries.json';
+import categorysData from './categorys.json';
 import './Filterpage.css';
 
 type Country = {
@@ -6,243 +9,94 @@ type Country = {
   code: string;
 };
 
+type CountryOption = {
+  value: string;
+  label: string;
+};
+
+type CategoryOption = {
+  value: string;
+  label: string;
+};
+
+type Category = string;
+
 const Filterpage = () => {
+  const [query, setQuery] = useState<string>(''); // value must be URL-encoded and the maximum character limit permitted is 100
+  const [selectedCountries, setSelectedCountries] = useState<CountryOption[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<CategoryOption[]>([]);
 
-  type Country = {
-    name: string;
-    code: string;
-  };
+  const countries: Country[] = countriesData as Country[];
+  const categories: Category[] = categorysData.categorys as Category[];
 
-  const countries: Country[] = [
-    { name: "Afghanistan", code: "af" },
-    { name: "Albania", code: "al" },
-    { name: "Algeria", code: "dz" },
-    { name: "Andorra", code: "ad" },
-    { name: "Angola", code: "ao" },
-    { name: "Argentina", code: "ar" },
-    { name: "Armenia", code: "am" },
-    { name: "Australia", code: "au" },
-    { name: "Austria", code: "at" },
-    { name: "Azerbaijan", code: "az" },
-    { name: "Bahamas", code: "bs" },
-    { name: "Bahrain", code: "bh" },
-    { name: "Bangladesh", code: "bd" },
-    { name: "Barbados", code: "bb" },
-    { name: "Belarus", code: "by" },
-    { name: "Belgium", code: "be" },
-    { name: "Belize", code: "bz" },
-    { name: "Benin", code: "bj" },
-    { name: "Bermuda", code: "bm" },
-    { name: "Bhutan", code: "bt" },
-    { name: "Bolivia", code: "bo" },
-    { name: "Bosnia And Herzegovina", code: "ba" },
-    { name: "Botswana", code: "bw" },
-    { name: "Brazil", code: "br" },
-    { name: "Brunei", code: "bn" },
-    { name: "Bulgaria", code: "bg" },
-    { name: "Burkina fasco", code: "bf" },
-    { name: "Burundi", code: "bi" },
-    { name: "Cambodia", code: "kh" },
-    { name: "Cameroon", code: "cm" },
-    { name: "Canada", code: "ca" },
-    { name: "Cape Verde", code: "cv" },
-    { name: "Cayman Islands", code: "ky" },
-    { name: "Central African Republic", code: "cf" },
-    { name: "Chad", code: "td" },
-    { name: "Chile", code: "cl" },
-    { name: "China", code: "cn" },
-    { name: "Colombia", code: "co" },
-    { name: "Comoros", code: "km" },
-    { name: "Congo", code: "cg" },
-    { name: "Cook islands", code: "ck" },
-    { name: "Costa Rica", code: "cr" },
-    { name: "Croatia", code: "hr" },
-    { name: "Cuba", code: "cu" },
-    { name: "Curaçao", code: "cw" },
-    { name: "Cyprus", code: "cy" },
-    { name: "Czech republic", code: "cz" },
-    { name: "Denmark", code: "dk" },
-    { name: "Djibouti", code: "dj" },
-    { name: "Dominica", code: "dm" },
-    { name: "Dominican republic", code: "do" },
-    { name: "DR Congo", code: "cd" },
-    { name: "Ecuador", code: "ec" },
-    { name: "Egypt", code: "eg" },
-    { name: "El Salvador", code: "sv" },
-    { name: "Equatorial Guinea", code: "gq" },
-    { name: "Eritrea", code: "er" },
-    { name: "Estonia", code: "ee" },
-    { name: "Eswatini", code: "sz" },
-    { name: "Ethiopia", code: "et" },
-    { name: "Fiji", code: "fj" },
-    { name: "Finland", code: "fi" },
-    { name: "France", code: "fr" },
-    { name: "French polynesia", code: "pf" },
-    { name: "Gabon", code: "ga" },
-    { name: "Gambia", code: "gm" },
-    { name: "Georgia", code: "ge" },
-    { name: "Germany", code: "de" },
-    { name: "Ghana", code: "gh" },
-    { name: "Gibraltar", code: "gi" },
-    { name: "Greece", code: "gr" },
-    { name: "Grenada", code: "gd" },
-    { name: "Guatemala", code: "gt" },
-    { name: "Guinea", code: "gn" },
-    { name: "Guyana", code: "gy" },
-    { name: "Haiti", code: "ht" },
-    { name: "Honduras", code: "hn" },
-    { name: "Hong kong", code: "hk" },
-    { name: "Hungary", code: "hu" },
-    { name: "Iceland", code: "is" },
-    { name: "India", code: "in" },
-    { name: "Indonesia", code: "id" },
-    { name: "Iran", code: "ir" },
-    { name: "Iraq", code: "iq" },
-    { name: "Ireland", code: "ie" },
-    { name: "Israel", code: "il" },
-    { name: "Italy", code: "it" },
-    { name: "Ivory Coast", code: "ci" },
-    { name: "Jamaica", code: "jm" },
-    { name: "Japan", code: "jp" },
-    { name: "Jersey", code: "je" },
-    { name: "Jordan", code: "jo" },
-    { name: "Kazakhstan", code: "kz" },
-    { name: "Kenya", code: "ke" },
-    { name: "Kiribati", code: "ki" },
-    { name: "Kosovo", code: "xk" },
-    { name: "Kuwait", code: "kw" },
-    { name: "Kyrgyzstan", code: "kg" },
-    { name: "Laos", code: "la" },
-    { name: "Latvia", code: "lv" },
-    { name: "Lebanon", code: "lb" },
-    { name: "Lesotho", code: "ls" },
-    { name: "Liberia", code: "lr" },
-    { name: "Libya", code: "ly" },
-    { name: "Liechtenstein", code: "li" },
-    { name: "Lithuania", code: "lt" },
-    { name: "Luxembourg", code: "lu" },
-    { name: "Macau", code: "mo" },
-    { name: "Macedonia", code: "mk" },
-    { name: "Madagascar", code: "mg" },
-    { name: "Malawi", code: "mw" },
-    { name: "Malaysia", code: "my" },
-    { name: "Maldives", code: "mv" },
-    { name: "Mali", code: "ml" },
-    { name: "Malta", code: "mt" },
-    { name: "Marshall Islands", code: "mh" },
-    { name: "Mauritania", code: "mr" },
-    { name: "Mauritius", code: "mu" },
-    { name: "Mexico", code: "mx" },
-    { name: "Micronesia", code: "fm" },
-    { name: "Moldova", code: "md" },
-    { name: "Monaco", code: "mc" },
-    { name: "Mongolia", code: "mn" },
-    { name: "Montenegro", code: "me" },
-    { name: "Morocco", code: "ma" },
-    { name: "Mozambique", code: "mz" },
-    { name: "Myanmar", code: "mm" },
-    { name: "Namibia", code: "na" },
-    { name: "Nauru", code: "nr" },
-    { name: "Nepal", code: "np" },
-    { name: "Netherland", code: "nl" },
-    { name: "New caledonia", code: "nc" },
-    { name: "New zealand", code: "nz" },
-    { name: "Nicaragua", code: "ni" },
-    { name: "Niger", code: "ne" },
-    { name: "Nigeria", code: "ng" },
-    { name: "North korea", code: "kp" },
-    { name: "Norway", code: "no" },
-    { name: "Oman", code: "om" },
-    { name: "Pakistan", code: "pk" },
-    { name: "Palau", code: "pw" },
-    { name: "Palestine", code: "ps" },
-    { name: "Panama", code: "pa" },
-    { name: "Papua New Guinea", code: "pg" },
-    { name: "Paraguay", code: "py" },
-    { name: "Peru", code: "pe" },
-    { name: "Philippines", code: "ph" },
-    { name: "Poland", code: "pl" },
-    { name: "Portugal", code: "pt" },
-    { name: "Puerto rico", code: "pr" },
-    { name: "Qatar", code: "qa" },
-    { name: "Romania", code: "ro" },
-    { name: "Russia", code: "ru" },
-    { name: "Rwanda", code: "rw" },
-    { name: "Saint lucia", code: "lc" },
-    { name: "Saint martin(dutch)", code: "sx" },
-    { name: "Samoa", code: "ws" },
-    { name: "San Marino", code: "sm" },
-    { name: "Sao tome and principe", code: "st" },
-    { name: "Saudi arabia", code: "sa" },
-    { name: "Senegal", code: "sn" },
-    { name: "Serbia", code: "rs" },
-    { name: "Seychelles", code: "sc" },
-    { name: "Sierra Leone", code: "sl" },
-    { name: "Singapore", code: "sg" },
-    { name: "Slovakia", code: "sk" },
-    { name: "Slovenia", code: "si" },
-    { name: "Solomon Islands", code: "sb" },
-    { name: "Somalia", code: "so" },
-    { name: "South africa", code: "za" },
-    { name: "South korea", code: "kr" },
-    { name: "Spain", code: "es" },
-    { name: "Sri Lanka", code: "lk" },
-    { name: "Sudan", code: "sd" },
-    { name: "Suriname", code: "sr" },
-    { name: "Sweden", code: "se" },
-    { name: "Switzerland", code: "ch" },
-    { name: "Syria", code: "sy" },
-    { name: "Taiwan", code: "tw" },
-    { name: "Tajikistan", code: "tj" },
-    { name: "Tanzania", code: "tz" },
-    { name: "Thailand", code: "th" },
-    { name: "Timor-Leste", code: "tl" },
-    { name: "Togo", code: "tg" },
-    { name: "Tonga", code: "to" },
-    { name: "Trinidad and tobago", code: "tt" },
-    { name: "Tunisia", code: "tn" },
-    { name: "Turkey", code: "tr" },
-    { name: "Turkmenistan", code: "tm" },
-    { name: "Tuvalu", code: "tv" },
-    { name: "Uganda", code: "ug" },
-    { name: "Ukraine", code: "ua" },
-    { name: "United arab emirates", code: "ae" },
-    { name: "United kingdom", code: "gb" },
-    { name: "United states of america", code: "us" },
-    { name: "Uruguay", code: "uy" },
-    { name: "Uzbekistan", code: "uz" },
-    { name: "Vanuatu", code: "vu" },
-    { name: "Vatican", code: "va" },
-    { name: "Venezuela", code: "ve" },
-    { name: "Vietnam", code: "vi" },
-    { name: "Virgin Islands (British)", code: "vg" },
-    { name: "World", code: "wo" },
-    { name: "Yemen", code: "ye" },
-    { name: "Zambia", code: "zm" },
-    { name: "Zimbabwe", code: "zw" }
-  ];
+  const countryOptions: CountryOption[] = countries.map((c) => ({
+    value: c.code,
+    label: c.name,
+  }));
 
-  const [query, setQuery] = useState<string>('')
+  const categoryOptions: CategoryOption[] = categories.map((cat) => ({
+    value: cat,
+    label: cat
+  }));
+
   return (
     <div className='filterpage-container'>
       <h1>Filtern</h1>
-      <form action="">
-        <label htmlFor="query">Suchen</label>
-        <input type="text" name="query" id="query" onChange={((e) => setQuery(e.target.value))} />
-
-        <div>
-          <label htmlFor="country">Choose a country:</label>
-          <input list="country-list" id="country" name="country" />
-
-          <datalist id="country-list">
-            {countries.map((country) => (
-              <option key={country.code} value={country.name} />
-            ))}
-          </datalist>
+      <form>
+        <div className="form-group">
+          <label htmlFor="query">Suchen</label>
+          <input
+            type="text"
+            name="query"
+            id="query"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            maxLength={100}
+          />
         </div>
+
+        <div className='form-group'>
+          <label htmlFor="countries">Länder</label>
+          <div className='countrie-select-container'>
+            <Select
+              isMulti
+              name="countries"
+              options={countryOptions}
+              className="countrie-select"
+              classNamePrefix="select"
+              placeholder="Länder auswählen..."
+              onChange={(selected) => setSelectedCountries(selected as CountryOption[])}
+              value={selectedCountries}
+            />
+          </div>
+        </div>
+
+        <div className='form-group'>
+          <label htmlFor="categories">Kategorien</label>
+          <div className='category-button-container'>
+            {categoryOptions.map((category) => (
+              <button
+                key={category.value}
+                className={selectedCategories.some(sc => sc.value === category.value) ? 'category-button-selected' : 'category-button'}
+                onClick={() => {
+                  if (selectedCategories.some(sc => sc.value === category.value)) {
+                    // If already selected, remove it
+                    setSelectedCategories(selectedCategories.filter(sc => sc.value !== category.value));
+                  } else {
+                    // If not selected, add it
+                    setSelectedCategories([...selectedCategories, category]);
+                  }
+                }}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <button type="submit" className="submit-button">Anwenden</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Filterpage
+export default Filterpage;
