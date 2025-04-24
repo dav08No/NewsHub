@@ -20,7 +20,7 @@ const Detailview: React.FC = () => {
       <p>Kategorie: {article.category.join(", ")}</p>
       <p>Countys: {article.country.join(", ")}</p>
 
-      <p>{article.description}</p>
+      <p>Beschreibung: {article.description}</p>
 
       <a href={article.link} target="_blank" rel="noopener noreferrer">
         Zum vollständigen Artikel
