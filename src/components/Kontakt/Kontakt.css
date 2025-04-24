@@ -1,6 +1,6 @@
 .contact-container {
     min-height: 100vh;
-    padding: 120px 5% 60px;
+    padding: 0px 5% 60px;
     color: #333; /* Dark gray for text */
     display: flex;
     flex-direction: column;

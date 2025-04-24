@@ -1,7 +1,8 @@
 import * as React from "react";
-import useChatbot from "./components/hooks/useChatbot";
+import useChatbot from "../hooks/useChatbot";
 import Markdown from 'react-markdown'
-import useChatScroll from "./components/hooks/useChatScroll";
+import useChatScroll from "../hooks/useChatScroll";
+import './Chatbot.css';
 
 const ChatComponent: React.FunctionComponent = () => {
   const [input, setInput] = React.useState("");

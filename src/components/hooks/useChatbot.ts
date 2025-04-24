@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+
 interface Message {
   text: string;
   sender: "user" | "bot";
