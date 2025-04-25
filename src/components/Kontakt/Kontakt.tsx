@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
 import "./Kontakt.css"; // Importing CSS for styling
+import { useTranslation } from "react-i18next";
 
 const Contact: React.FC = () => {
+  const { t } = useTranslation();
+
   // Reference to the form element for resetting after submission
   const formRef = useRef<HTMLFormElement | null>(null);
 
@@ -9,7 +12,7 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
 
   // State to store email validation error message
-  const [emailError, setEmailError] = useState("");
+  const [emailError, setEmailError] = useState<string>("");
 
   // Function to validate email format (must end with @swisscom.com)
   const validateEmail = (email: string) => /^[a-zA-Z0-9._%+-]+@swisscom\.com$/.test(email);
@@ -21,7 +24,7 @@ const Contact: React.FC = () => {
 
     // Validate email field and update error state accordingly
     if (name === "email") {
-      setEmailError(validateEmail(value) ? "" : "Please enter a valid @swisscom.com email address");
+      setEmailError(validateEmail(value) ? "" : t('errors.email'));
     }
   };
 
@@ -31,7 +34,7 @@ const Contact: React.FC = () => {
 
     // Ensure email is valid before proceeding
     if (!validateEmail(formData.email)) {
-      return setEmailError("Please enter a valid @swisscom.com email address");
+      return setEmailError(t('errors.email'));
     }
 
     // Prepare form data for submission
@@ -51,23 +54,23 @@ const Contact: React.FC = () => {
 
   return (
     <div className="contact-container">
-      <h1 className="contact-header">Kontaktieren Sie Uns</h1>
+      <h1 className="contact-header">{t('contact.title')}</h1>
       <form onSubmit={onSubmit} className="contact-form" ref={formRef}>
         {/* Input field for name */}
-        <input type="text" name="name" placeholder="Name" className="contact-input" required onChange={handleChange} />
+        <input type="text" name="name" placeholder={t('contact.name')} className="contact-input" required onChange={handleChange} />
 
         {/* Email input field with validation message */}
         <div style={{ width: "100%" }}>
-          <input type="email" name="email" placeholder="E-mail" className="contact-input" required onChange={handleChange} />
+          <input type="email" name="email" placeholder={t('contact.mail')} className="contact-input" required onChange={handleChange} />
           {/* Display the Error */}
           {emailError && <div style={{ color: "red", fontSize: "0.8rem", marginTop: "4px" }}>{emailError}</div>}
         </div>
 
         {/* Textarea for message input */}
-        <textarea name="message" placeholder="Schreiben sie hier ihr Nachricht" className="contact-textarea" required onChange={handleChange}></textarea>
+        <textarea name="message" placeholder={t('contact.placeholder')} className="contact-textarea" required onChange={handleChange}></textarea>
 
         {/* Submit button */}
-        <button type="submit" className="contact-button">Senden</button>
+        <button type="submit" className="contact-button">{t('contact.send')}</button>
       </form>
     </div>
   );

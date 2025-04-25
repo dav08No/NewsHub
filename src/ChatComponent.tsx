@@ -2,12 +2,15 @@ import * as React from "react";
 import useChatbot from "./components/hooks/useChatbot";
 import Markdown from 'react-markdown'
 import useChatScroll from "./components/hooks/useChatScroll";
+import { useTranslation } from "react-i18next";
 
 const ChatComponent: React.FunctionComponent = () => {
   const [input, setInput] = React.useState("");
   const [isSending, setIsSending] = React.useState(false);
   const { messages, sendMessage } = useChatbot();
   const ref = useChatScroll(messages);
+
+  const { t } = useTranslation();
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -28,7 +31,7 @@ const ChatComponent: React.FunctionComponent = () => {
   return (
     <div className="chat-container">
       <h2 className="chat-header">
-        Chatbot
+        {t('chatbot.title')}
       </h2>
 
       <div ref={ref} className="chat-messages">
@@ -47,7 +50,7 @@ const ChatComponent: React.FunctionComponent = () => {
         <input
           type="text"
           className="chat-input"
-          placeholder="Your message here"
+          placeholder={t('chatbot.question')}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -58,7 +61,7 @@ const ChatComponent: React.FunctionComponent = () => {
           className={`chat-send-btn ${isSending ? "chat-send-btn-disabled" : ""}`}
           disabled={isSending}
         >
-          Senden
+          {t('chatbot.send')}
         </button>
       </div>
     </div>

@@ -17,7 +17,8 @@
 
   "errors": {
     "articles": "Keine Artikel verfügbar. Bitte versuchen Sie es später noch einmal.",
-    "not-found": "Artikel nicht gefunden."
+    "not-found": "Artikel nicht gefunden.",
+      "email": "Bitte geben Sie eine gültige @swisscom.com E-Mail-Adresse ein"
   },
 
   "detailview": {
@@ -38,5 +39,19 @@
     "kontakt": "Schreibe uns über die Kontaktseite an!",
     "text": "Unsere Projektidee war es, eine Website zu erstellen, auf der man die wichtigsten aktuellen Nachrichten anschauen kann. Dafür haben wir die Newsdata.io API verwendet, um die Nachrichten zu erhalten und anzuzeigen.",
     "projekt": "Unser Projekt"
+  },
+
+  "contact": {
+    "title": "Kontaktieren Sie Uns",
+    "name": "Name",
+    "mail": "E-Mail",
+    "placeholder": "Schreiben Sie hier Ihre Nachricht",
+    "send": "Senden"
+  },
+
+  "chatbot": {
+    "title": "Chat Bot",
+    "question": "Stellen Sie irgendeine Frage",
+    "send": "Senden"
   }
 }

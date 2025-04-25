@@ -13,7 +13,10 @@
     "@google/generative-ai": "^0.24.0",
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.8.4",
+<<<<<<< HEAD
     "i18n": "^0.15.1",
+=======
+>>>>>>> 06361f22f2bfc6602b16c358b64b9d12d6f4fe99
     "i18next": "^25.0.1",
     "i18next-browser-languagedetector": "^8.0.5",
     "react": "^19.0.0",

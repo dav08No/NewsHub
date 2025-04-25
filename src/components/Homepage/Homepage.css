@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+.homepage-container {
+  padding: 6px 5% 60px;
+}
+
+/* Container für alle Artikel */
+>>>>>>> 06361f22f2bfc6602b16c358b64b9d12d6f4fe99
 .articles-container {
   position: relative;
   border-radius: 8px;
@@ -7,7 +15,6 @@
   height: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .articles-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
@@ -24,13 +31,17 @@
 }
 
 .articles-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
   z-index: 2;
 }
 
@@ -55,6 +66,7 @@
   margin: 0;
   font-style: italic;
 }
+<<<<<<< HEAD
 
 .loader {
   position: absolute;
@@ -143,3 +155,5 @@
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
 }
+=======
+>>>>>>> 06361f22f2bfc6602b16c358b64b9d12d6f4fe99

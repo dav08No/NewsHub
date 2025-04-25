@@ -25,7 +25,7 @@ export type ArticleType = {
   language?: string;
   source_name: string;
   source_link: string;
-  country: string[]
+  country: string[];
 };
 
 const Homepage: React.FC = () => {
@@ -33,8 +33,9 @@ const Homepage: React.FC = () => {
   const [articles, setArticles] = useState<ArticleType[]>([]);
   // State to track whether articles are being loaded
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleArticles, setVisibleArticles] = useState(10);
 
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   // Array of API keys to use in case one hits its rate limit
   const apiKeys = [
@@ -53,6 +54,7 @@ const Homepage: React.FC = () => {
     // Function that fetches articles from the news API
     const fetchArticles = async () => {
       setIsLoading(true); // Start loading state
+      visibleArticles;
 
       const fetchedArticles: any[] = []; // Hold all fetched articles
       const articleFetchLimit = 40; // Maximum number of articles to fetch in total
@@ -69,7 +71,8 @@ const Homepage: React.FC = () => {
 
           // Continue fetching pages from the current API key until limit is reached or no more pages
           while (fetchedArticles.length < articleFetchLimit) {
-            const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ''}`;
+            const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ""
+              }`;
             const response = await fetch(url);
 
             // Stop using this key if rate limit is reached
@@ -88,10 +91,9 @@ const Homepage: React.FC = () => {
             // If there is no next page, exit loop
             if (!nextPage) break;
           }
-
         } catch (err) {
           // If fetch fails, continue with next API key
-          console.error('Error: ', err);
+          console.error("Error: ", err);
         }
       }
 
@@ -100,7 +102,11 @@ const Homepage: React.FC = () => {
       const finalArticles: ArticleType[] = [];
       const targetLang = i18n.language;
 
-      for (let i = 0; i < fetchedArticles.length && finalArticles.length < 25; i++) {
+      for (
+        let i = 0;
+        i < fetchedArticles.length && finalArticles.length < 25;
+        i++
+      ) {
         const article = fetchedArticles[i];
         if (!article) continue;
 
@@ -119,7 +125,7 @@ const Homepage: React.FC = () => {
           language: article.language,
           source_name: article.source_name,
           source_link: article.source_link,
-          country: article.country
+          country: article.country,
         };
 
         // Avoid adding duplicate titles
@@ -139,30 +145,42 @@ const Homepage: React.FC = () => {
   }, []);
 
   return (
-    <div className='homepage-container'>
-      <h1>NewsHub</h1>
-
+    <div className="homepage-container">
+      <h1 className="title">NewsHub</h1>
       {isLoading ? (
         // Show loading message while fetching data
         <span className="loader"></span>
       ) : articles.length > 0 ? (
         // Render each article if available
-        articles
-          .filter(article => !!article.image_url) // Only articles with an Imageurl
-          .map((art, index) => (
-            <Link
-              to={`/article/${index}`}
-              state={{ article: art }}
-              className="article-link"
-              key={art.id}
-            >
-              <div className='articles-container' key={art.id} id={index.toString()}>
-                <h1 className='article-title'>{art.title}</h1>
-                <img className='article-img' src={art.image_url} />
-                <p className='article-categorys'>{art.category.join(', ')}</p>
-              </div>
-            </Link>
-          ))
+        <>
+          {articles
+            .filter((article) => !!article.image_url) // Only articles with an Imageurl
+            .slice(0, visibleArticles)
+            .map((art, index) => (
+              <Link
+                to={`/article/${index}`}
+                state={{ article: art }}
+                className="article-link"
+                key={art.id}
+              >
+                <div
+                  className="articles-container"
+                  key={art.id}
+                  id={index.toString()}
+                >
+                  <h1 className="article-title">{art.title}</h1>
+                  <img className="article-img" src={art.image_url} />
+                  <p className="article-categorys">{art.category.join(", ")}</p>
+                </div>
+              </Link>
+            ))}
+          <button
+            className="loadMore"
+            onClick={() => setVisibleArticles((prev) => prev + 10)}
+          >
+            Mehr laden
+          </button>
+        </>
       ) : (
         // Fallback message if no articles are available
         <p>No articles available. Please try again later.</p>

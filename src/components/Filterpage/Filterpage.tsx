@@ -48,7 +48,7 @@ const Filterpage: React.FC = () => {
   const [articles, setArticles] = useState<ArticleType[]>([]); // Gefundene Artikel
   const [isLoading, setIsLoading] = useState<boolean>(false); // Ladeanzeige
   const [hasFilter, setHasFilter] = useState<boolean>(false);
-
+  const [visibleCount, setVisibleCount] = useState(10);
   const { t, i18n } = useTranslation(); // Lokalisierung
 
   // Daten aus JSON-Dateien laden und umwandeln
@@ -104,7 +104,6 @@ const Filterpage: React.FC = () => {
           nextPage = data.nextPage || null;
           if (!nextPage) break;
         }
-
       } catch (err) {
         console.error('Error: ', err);
       }
@@ -133,7 +132,7 @@ const Filterpage: React.FC = () => {
         language: article.language,
         source_name: article.source_name,
         source_link: article.source_link,
-        country: article.country
+        country: article.country,
       };
 
       // Doppelte Titel ausschließen
@@ -207,22 +206,37 @@ const Filterpage: React.FC = () => {
       {isLoading ? (
         <span className="loader"></span>
       ) : articles.length > 0 ? (
-        articles
-          .filter(article => !!article.image_url)
-          .map((art, index) => (
-            <Link
-              to={`/article/${index}`}
-              state={{ article: art }}
-              className="article-link"
-              key={art.id}
-            >
-              <div className='articles-container' key={art.id} id={index.toString()}>
-                <h1 className='article-title'>{art.title}</h1>
-                <img className='article-img' src={art.image_url} />
-                <p className='article-categorys'>{art.category.join(', ')}</p>
-              </div>
-            </Link>
-          ))
+        // Render each article if available
+        <>
+          {articles
+            .filter((article) => !!article.image_url) // Only articles with an Imageurl
+            .slice(0, visibleCount)
+            .map((art, index) => (
+              <Link
+                to={`/article/${index}`}
+                state={{ article: art }}
+                className="article-link"
+                key={art.id}
+              >
+                <div
+                  className="articles-container"
+                  key={art.id}
+                  id={index.toString()}
+                >
+                  <h1 className="article-title">{art.title}</h1>
+                  <img className="article-img" src={art.image_url} />
+                  <p className="article-categorys">{art.category.join(", ")}</p>
+                </div>
+              </Link>
+            ))}
+
+          <button
+            className="loadMore"
+            onClick={() => setVisibleCount((prev) => prev + 5)}
+          >
+            Mehr laden
+          </button>
+        </>
       ) : (
         <p>{hasFilter ? t('errors.articles') : ''}</p>
       )}
