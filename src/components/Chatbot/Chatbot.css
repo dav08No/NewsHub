@@ -99,10 +99,10 @@ input::placeholder {
     border-radius: 20px;
     outline: none; /* Entfernt den Fokusrahmen */
     
-    margin-left: -14.85%;
-    width: 19%;
+    margin-left: -13.55%;
+    width: 17.5%;
     z-index: -1000;
-    padding-left: 14.85%;
+    padding-left: 13.55%;
     box-shadow: 2px 2px 8px black;
 }
 span {
