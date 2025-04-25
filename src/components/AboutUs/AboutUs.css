@@ -18,7 +18,7 @@ p {
 
 .container {
   min-height: 100vh;
-  padding: 60px 5% 60px;
+  padding: 6px 5% 60px;
   color: #333;
   display: flex;
   flex-direction: column;

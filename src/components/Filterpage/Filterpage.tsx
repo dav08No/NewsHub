@@ -34,6 +34,7 @@ const Filterpage = () => {
   const [articles, setArticles] = useState<ArticleType[]>([]);
   // State to track whether articles are being loaded
   const [isLoading, setIsLoading] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(10);
 
   const countries: Country[] = countriesData as Country[];
   const categories: Category[] = categorysData.categorys as Category[];
@@ -62,8 +63,7 @@ const Filterpage = () => {
 
   // Function that fetches articles from the news API
   const filterArticles = async () => {
-    setIsLoading(true); // Start loading state
-
+    setIsLoading(true); //Start Loading state
     const fetchedArticles: any[] = []; // Hold all fetched articles
     const articleFetchLimit = 40; // Maximum number of articles to fetch in total
 
@@ -117,7 +117,6 @@ const Filterpage = () => {
     // Filter and normalize the articles for display
     const titleSet = new Set<string>(); // Used to avoid duplicates by title
     const finalArticles: ArticleType[] = [];
-
     for (
       let i = 0;
       i < fetchedArticles.length && finalArticles.length < 25;
@@ -154,7 +153,7 @@ const Filterpage = () => {
 
   return (
     <div className="filterpage-container">
-      <h1>Filtern</h1>
+      <h1 className="title">Filtern</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -244,26 +243,36 @@ const Filterpage = () => {
         <p>Loading articles...</p>
       ) : articles.length > 0 ? (
         // Render each article if available
-        articles
-          .filter((article) => !!article.image_url) // Only articles with an Imageurl
-          .map((art, index) => (
-            <Link
-              to={`/article/${index}`}
-              state={{ article: art }}
-              className="article-link"
-              key={art.id}
-            >
-              <div
-                className="articles-container"
+        <>
+          {articles
+            .filter((article) => !!article.image_url) // Only articles with an Imageurl
+            .slice(0, visibleCount)
+            .map((art, index) => (
+              <Link
+                to={`/article/${index}`}
+                state={{ article: art }}
+                className="article-link"
                 key={art.id}
-                id={index.toString()}
               >
-                <h1 className="article-title">{art.title}</h1>
-                <img className="article-img" src={art.image_url} />
-                <p className="article-categorys">{art.category.join(", ")}</p>
-              </div>
-            </Link>
-          ))
+                <div
+                  className="articles-container"
+                  key={art.id}
+                  id={index.toString()}
+                >
+                  <h1 className="article-title">{art.title}</h1>
+                  <img className="article-img" src={art.image_url} />
+                  <p className="article-categorys">{art.category.join(", ")}</p>
+                </div>
+              </Link>
+            ))}
+
+          <button
+            className="loadMore"
+            onClick={() => setVisibleCount((prev) => prev + 5)}
+          >
+            Mehr laden
+          </button>
+        </>
       ) : (
         // Fallback message if no articles are available
         <p>No articles available. Please try again later.</p>
