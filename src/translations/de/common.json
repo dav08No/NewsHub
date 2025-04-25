@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "homepage": "Homepage",
+    "search": "Suche",
+    "about": "Über Uns",
+    "contact": "Kontakt",
+    "chatbot": "Chat Bot"
+  },
+
+  "filter": {
+    "title": "Filter",
+    "search": "Suchen",
+    "use": "Anwenden",
+    "country-selector": "Länder auswählen...",
+    "categories": "Kategorien"
+  },
+
+  "errors": {
+    "articles": "Keine Artikel verfügbar. Bitte versuchen Sie es später noch einmal.",
+    "not-found": "Artikel nicht gefunden."
+  },
+
+  "detailview": {
+    "categories": "Kategorien: ",
+    "countrys": "Länder: ",
+    "description": "Beschreibung: ",
+    "link": "Zum vollständigen Artikel"
+  },
+
+  "about": {
+    "title": "Über uns",
+    "team": "Unser Team",
+    "start": "Wir sind fünf Programmierer und haben gemeinsam diese Newsseite gebaut – modern, einfach und informativ.",
+    "17": "17 Jahre alt | 1.Lehrjahr",
+    "16": "16 Jahre alt | 1.Lehrjahr",
+    "15": "15 Jahre alt | 1.Lehrjahr",
+    "vlt": "Vielleicht Du",
+    "kontakt": "Schreibe uns über die Kontaktseite an!",
+    "text": "Unsere Projektidee war es, eine Website zu erstellen, auf der man die wichtigsten aktuellen Nachrichten anschauen kann. Dafür haben wir die Newsdata.io API verwendet, um die Nachrichten zu erhalten und anzuzeigen.",
+    "projekt": "Unser Projekt"
+  }
+}

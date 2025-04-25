@@ -7,6 +7,7 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import Kontakt from "./components/Kontakt/Kontakt";
 import ChatComponent from "./ChatComponent";
 import Detailview from "./components/Detailview/Detailview";
+import './i18n';
 const App = () => {
   return (
     <div className="max-w-lg mt-20 mx-auto bg-white shadow-md rounded-lg overflow-hidden">

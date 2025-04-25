@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "homepage": "Home",
+    "search": "Search",
+    "about": "About Us",
+    "contact": "Contact",
+    "chatbot": "Chat Bot"
+  },
+
+  "filter": {
+    "title": "Filter",
+    "search": "Search",
+    "use": "Apply",
+    "country-selector": "Select countries...",
+    "categories": "Categories"
+  },
+
+  "errors": {
+    "articles": "Keine Artikel verfügbar. Bitte versuchen Sie es später noch einmal.",
+    "not-found": "Article not found."
+  },
+
+  "detailview": {
+    "categories": "Categories: ",
+    "countrys": "Countries: ",
+    "description": "Description: ",
+    "link": "To the complete article"
+  },
+
+  "about": {
+    "title": "About Us",
+    "team": "Our Team",
+    "start": "We are five programmers and together we have built this news site - modern, simple and informative.",
+    "17": "17 years old | 1st year of apprenticeship",
+    "16": "16 years old | 1st year of apprenticeship",
+    "15": "15 years old | 1st year of apprenticeship",
+    "vlt": "Maybe You",
+    "kontakt": "Contact us via the contact page!",
+    "text": "Our project idea was to create a website where you can view the most important recent news. For this, we used the Newsdata.io API to fetch and display the news.",
+    "projekt": "Our Project"
+  }
+}

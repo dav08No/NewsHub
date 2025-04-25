@@ -1,0 +1,42 @@
+{
+  "navigation": {
+    "homepage": "Accueil",
+    "search": "Recherche",
+    "about": "À Propos",
+    "contact": "Contact",
+    "chatbot": "Robot de Chat"
+  },
+
+  "filter": {
+    "title": "Filtre",
+    "search": "Recherche",
+    "use": "Appliquer",
+    "country-selector": "Sélectionner les pays...",
+    "categories": "Catégories"
+  },
+
+  "errors": {
+    "articles": "Aucun article disponible. Veuillez réessayer plus tard.",
+    "not-found": "Article non trouvé."
+  },
+
+  "detailview": {
+    "categories": "Catégories: ",
+    "countrys": "Pays: ",
+    "description": "Description: ",
+    "link": "Lire l'article complet"
+  },
+
+  "about": {
+    "title": "À propos de nous",
+    "team": "Notre équipe",
+    "start": "Nous sommes cinq programmeurs et avons construit ensemble ce site d'actualités - moderne, simple et informatif.",
+    "17": "17 ans | 1ère année d'apprentissage",
+    "16": "16 ans | 1ère année d'apprentissage",
+    "15": "15 ans | 1ère année d'apprentissage",
+    "vlt": "Peut-être toi",
+    "kontakt": "Contacte-nous via la page de contact !",
+    "text": "Notre idée de projet était de créer un site web où l'on peut consulter les actualités les plus importantes du moment. Pour cela, nous avons utilisé l'API Newsdata.io afin de récupérer et d'afficher les nouvelles.",
+    "projekt": "Notre projet"
+  }
+}
