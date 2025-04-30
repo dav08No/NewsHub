@@ -54,7 +54,6 @@ const Homepage: React.FC = () => {
     // Function that fetches articles from the news API
     const fetchArticles = async () => {
       setIsLoading(true); // Start loading state
-      visibleArticles;
 
       const fetchedArticles: any[] = []; // Hold all fetched articles
       const articleFetchLimit = 40; // Maximum number of articles to fetch in total
@@ -71,8 +70,7 @@ const Homepage: React.FC = () => {
 
           // Continue fetching pages from the current API key until limit is reached or no more pages
           while (fetchedArticles.length < articleFetchLimit) {
-            const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ""
-              }`;
+            const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ""}`;
             const response = await fetch(url);
 
             // Stop using this key if rate limit is reached
@@ -102,11 +100,7 @@ const Homepage: React.FC = () => {
       const finalArticles: ArticleType[] = [];
       const targetLang = i18n.language;
 
-      for (
-        let i = 0;
-        i < fetchedArticles.length && finalArticles.length < 25;
-        i++
-      ) {
+      for (let i = 0; i < fetchedArticles.length && finalArticles.length < 25; i++) {
         const article = fetchedArticles[i];
         if (!article) continue;
 
