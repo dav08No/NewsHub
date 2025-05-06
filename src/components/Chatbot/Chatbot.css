@@ -25,15 +25,7 @@
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Subtle blue glow */
 }
 
-.chat-input-container {
-    
-        position: fixed; 
-        bottom: 0; 
-        left: 0; 
-        width: 100%; 
-        padding: 10px; 
-        z-index: 1000; 
-}
+
 
 .chat-bubble-user {
     background: white;
@@ -51,8 +43,7 @@
    font-weight: 520;
    padding-left: 8px;
    padding-right: 8px;
-   padding-top: 5px;
-   padding-bottom: 5px;
+ 
 }
 
 
@@ -62,15 +53,19 @@
     margin-right: 25%;
    padding-left: 8px;
    padding-right: 8px;
-   padding-bottom: 60px;
+   padding-bottom: 10%;
 }
 .chat-input-container {
    
-   color: white;
    margin-bottom: 1.5%;
    display: flex;
    justify-content: center;
-   
+   position: fixed; 
+    bottom: 0; 
+     left: 0; 
+    width: 100%; 
+    
+    
    
 
     
@@ -79,12 +74,14 @@
     background-color: #007bff; /* oder was du willst */
     border: none;
     border-radius: 20px;
-    padding-bottom: 1%;
+    padding-bottom: 5%;
     padding-top: 1%;
-    padding-left: 1.5%;
+    padding-left: 1%;
+    padding-right: 22% !important;
     color: white;
     outline: none; /* Entfernt den Fokusrahmen */
-    
+    margin-top: 33%;
+    z-index: -1000;
 }
 input::placeholder {
     
@@ -94,18 +91,26 @@ input::placeholder {
       
 }
 .chat-send-btn {
+    background-color: white; /* oder was du willst */
     border: none;
-    
-    border-radius: 20px;
+    border-radius: 10px;
+    position: absolute;
+    margin-left: 64.2%;
+    margin-right: 32.8%;
+    margin-top: 37%;
+    color: white;
     outline: none; /* Entfernt den Fokusrahmen */
     
-    margin-left: -13.55%;
-    width: 17.5%;
-    z-index: -1000;
-    padding-left: 13.55%;
-    box-shadow: 2px 2px 8px black;
+    
 }
-span {
+.sending {
     color: black;
     opacity: 0.8;
+}
+.send-img {
+    width: 80%;
+    height: 80%;
+    padding-top: 20%;
+    
+   
 }

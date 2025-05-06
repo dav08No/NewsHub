@@ -59,7 +59,7 @@ const ChatComponent: React.FunctionComponent = () => {
           className={`chat-send-btn ${isSending ? "chat-send-btn-disabled" : ""}`}
           disabled={isSending}
         >
-          <span>Send</span>
+          <span className="sending"><img src="senden.png" className="send-img"  alt="Senden" /></span>
         </button>
       </div>
     </div>

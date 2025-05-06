@@ -149,9 +149,12 @@ const Homepage: React.FC = () => {
                   key={art.id}
                   id={index.toString()}
                 >
+                  <div className="article-title-container">
                   <h1 className="article-title">{art.title}</h1>
-                  <img className="article-img" src={art.image_url} />
                   <p className="article-categorys">{art.category.join(", ")}</p>
+                  </div>
+                  <img className="article-img" src={art.image_url} />
+                  
                 </div>
               </Link>
             ))}
