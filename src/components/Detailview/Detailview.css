@@ -42,7 +42,7 @@
   margin-top: 4%;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  padding-top: 3%;
+  padding-top: 5%;
   padding-bottom: 3%;
   width: fit-content;
 }
@@ -56,4 +56,9 @@
   -webkit-text-fill-color: transparent;
   text-align: center;
   position: relative;
+}
+.link {
+  color: #0056b3;
+ 
+  text-decoration: underline;
 }

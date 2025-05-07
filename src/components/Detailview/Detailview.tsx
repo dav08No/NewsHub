@@ -25,20 +25,14 @@ const Detailview: React.FC = () => {
               <span className="article-title">Keine Beschreibung</span>{" "}
             </p>
           </div>
-        </div>
-
-        <p>
-          {t("detailview.categories")}
-          <br /> {article.category.join(", ")}
-        </p>
-        <p>
-          {t("detailview.countrys")}
-          <br /> {article.country.join(", ")}
-        </p>
-
-        <a href={article.link} target="_blank" rel="noopener noreferrer">
+          <a href={article.link} target="_blank" rel="noopener noreferrer">
           {t("detailview.link")}
         </a>
+        </div>
+
+        
+
+        
       </div>
     );
   else
@@ -58,20 +52,15 @@ const Detailview: React.FC = () => {
               <span className="article-description">{article.description}</span>
             </p>
           </div>
+          <a href={article.link} target="_blank" rel="noopener noreferrer" className="link">
+          zum Artikel
+          </a>
         </div>
 
-        <p>
-          {t("detailview.categories")}
-          <br /> {article.category.join(", ")}
-        </p>
-        <p>
-          {t("detailview.countrys")}
-          <br /> {article.country.join(", ")}
-        </p>
+       
 
-        <a href={article.link} target="_blank" rel="noopener noreferrer">
-          {t("detailview.link")}
-        </a>
+        
+        
       </div>
     );
 };

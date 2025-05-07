@@ -144,17 +144,20 @@ const Homepage: React.FC = () => {
                 className="article-link"
                 key={art.id}
               >
+                <div className="article-outer-container">
+                <h1 className="article-title">{art.title}</h1>
+                
                 <div
                   className="articles-container"
                   key={art.id}
                   id={index.toString()}
                 >
-                  <div className="article-title-container">
-                  <h1 className="article-title">{art.title}</h1>
-                  <p className="article-categorys">{art.category.join(", ")}</p>
-                  </div>
+                  
+                  
                   <img className="article-img" src={art.image_url} />
                   
+                </div>
+                <p className="article-categorys">Kategorie: {art.category.join(", ")}</p>
                 </div>
               </Link>
             ))}
