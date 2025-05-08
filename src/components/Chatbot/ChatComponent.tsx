@@ -1,7 +1,8 @@
 import * as React from "react";
-import useChatbot from "./components/hooks/useChatbot";
+import useChatbot from "../hooks/useChatbot";
 import Markdown from 'react-markdown'
-import useChatScroll from "./components/hooks/useChatScroll";
+import useChatScroll from "../hooks/useChatScroll";
+import './Chatbot.css';
 
 const ChatComponent: React.FunctionComponent = () => {
   const [input, setInput] = React.useState("");
@@ -58,7 +59,7 @@ const ChatComponent: React.FunctionComponent = () => {
           className={`chat-send-btn ${isSending ? "chat-send-btn-disabled" : ""}`}
           disabled={isSending}
         >
-          Senden
+          <span className="sending"><img src="senden.png" className="send-img"  alt="Senden" /></span>
         </button>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/Navbar/Navbar";
+import NavBar from "./components/NavBar/NavBar";
 import Homepage from "./components/Homepage/Homepage";
 import Filterpage from "./components/Filterpage/Filterpage";
 import AboutUs from "./components/AboutUs/AboutUs";
 import Kontakt from "./components/Kontakt/Kontakt";
-import ChatComponent from "./ChatComponent";
+import ChatComponent from "./components/Chatbot/ChatComponent";
 import Detailview from "./components/Detailview/Detailview";
 const App = () => {
   return (
