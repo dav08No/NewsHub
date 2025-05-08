@@ -1,11 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import "./Detailview.css";
 
 const Detailview: React.FC = () => {
   // Access the location object from React Router to retrieve passed state
   const { state } = useLocation();
+  const { t } = useTranslation();
   const { t } = useTranslation();
 
   // Extract the article data from the location state
