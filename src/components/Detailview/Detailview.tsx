@@ -15,29 +15,25 @@ const Detailview: React.FC = () => {
   if (!article) return <p>{t("errors.not-found")}</p>;
   if (!article.description)
     return (
-      <div>
+      <div className="detailview-container">
         <div className="img-article-container">
           <h1>{article.title}</h1>
           <img src={article.image_url} alt={article.title} />
           <div className="article-container">
             <p className="article">
               {" "}
-              <span className="article-title">Keine Beschreibung</span>{" "}
+              <span className="article-title">{t('errors.description')}</span>{" "}
             </p>
           </div>
           <a href={article.link} target="_blank" rel="noopener noreferrer">
-          zum Artikel
+         {t('detailview.link')}
         </a>
         </div>
-
-        
-
-        
       </div>
     );
   else
     return (
-      <div>
+      <div className="detailview-container">
         <div className="img-article-container">
           <h1 className="title">{article.title}</h1>
           <img
@@ -53,14 +49,9 @@ const Detailview: React.FC = () => {
             </p>
           </div>
           <a href={article.link} target="_blank" rel="noopener noreferrer" className="link">
-          zum Artikel
+          {t('detailview.link')}
           </a>
         </div>
-
-       
-
-        
-        
       </div>
     );
 };

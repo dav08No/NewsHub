@@ -4,7 +4,8 @@
     "search": "Suche",
     "about": "Über Uns",
     "contact": "Kontakt",
-    "chatbot": "Chat Bot"
+    "chatbot": "Chat Bot",
+    "load": " Mehr laden"
   },
 
   "filter": {
@@ -18,7 +19,8 @@
   "errors": {
     "articles": "Keine Artikel verfügbar. Bitte versuchen Sie es später noch einmal.",
     "not-found": "Artikel nicht gefunden.",
-      "email": "Bitte geben Sie eine gültige @swisscom.com E-Mail-Adresse ein"
+    "email": "Bitte geben Sie eine gültige @swisscom.com E-Mail-Adresse ein",
+    "description": "Keine Beschreibung verfügbar."
   },
 
   "detailview": {
@@ -36,7 +38,7 @@
     "16": "16 Jahre alt | 1.Lehrjahr",
     "15": "15 Jahre alt | 1.Lehrjahr",
     "vlt": "Vielleicht Du",
-    "kontakt": "Schreibe uns über die Kontaktseite an!",
+    "contact": "Schreibe uns <br /> über die Kontaktseite an!",
     "text": "Unsere Projektidee war es, eine Website zu erstellen, auf der man die wichtigsten aktuellen Nachrichten anschauen kann. Dafür haben wir die Newsdata.io API verwendet, um die Nachrichten zu erhalten und anzuzeigen.",
     "projekt": "Unser Projekt"
   },

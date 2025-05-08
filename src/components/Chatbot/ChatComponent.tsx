@@ -3,6 +3,7 @@ import useChatbot from "../hooks/useChatbot";
 import Markdown from 'react-markdown'
 import useChatScroll from "../hooks/useChatScroll";
 import { useTranslation } from "react-i18next";
+import "./Chatbot.css";
 
 const ChatComponent: React.FunctionComponent = () => {
   const [input, setInput] = React.useState("");
@@ -61,8 +62,9 @@ const ChatComponent: React.FunctionComponent = () => {
           className={`chat-send-btn ${isSending ? "chat-send-btn-disabled" : ""}`}
           disabled={isSending}
         >
-          Senden
+          <span className="sending"><img src="senden.png" className="send-img"  alt="Senden" /></span>
         </button>
+
       </div>
     </div>
   );

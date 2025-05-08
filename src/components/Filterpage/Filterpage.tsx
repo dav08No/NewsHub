@@ -1,20 +1,27 @@
-import React, { useState } from 'react'
-import Select from 'react-select';
-import countriesData from './countries.json';
-import categorysData from './categorys.json';
-import './Filterpage.css';
-import { ArticleType } from '../Homepage/Homepage';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import Select from "react-select";
+import countriesData from "./countries.json";
+import categorysData from "./categorys.json";
+import "./Filterpage.css";
+import { ArticleType } from "../Homepage/Homepage";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 // Übersetzungsfunktion: verwendet eine kostenlose Google-API zum Übersetzen von Texten (nicht DeepL)
-const translateText = async (text: string, targetLang: string): Promise<string> => {
+const translateText = async (
+  text: string,
+  targetLang: string
+): Promise<string> => {
   try {
-    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+    const res = await fetch(
+      `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(
+        text
+      )}`
+    );
     const data = await res.json();
-    return data[0]?.map((t: any) => t[0]).join('') || text;
+    return data[0]?.map((t: any) => t[0]).join("") || text;
   } catch (error) {
-    console.error('Translation failed', error);
+    console.error("Translation failed", error);
     return text; // Falls Fehler, gib Originaltext zurück
   }
 };
@@ -34,7 +41,6 @@ type CountryOption = {
 };
 
 type CategoryOption = {
-
   value: string;
   label: string;
 };
@@ -43,9 +49,13 @@ type CategoryOption = {
 type Category = string;
 
 const Filterpage: React.FC = () => {
-  const [query, setQuery] = useState<string>(''); // Suchbegriff (max. 100 Zeichen)
-  const [selectedCountries, setSelectedCountries] = useState<CountryOption[] | null>(null); // Ausgewählte Länder
-  const [selectedCategories, setSelectedCategories] = useState<CategoryOption[] | null>(null); // Ausgewählte Kategorien
+  const [query, setQuery] = useState<string>(""); // Suchbegriff (max. 100 Zeichen)
+  const [selectedCountries, setSelectedCountries] = useState<
+    CountryOption[] | null
+  >(null); // Ausgewählte Länder
+  const [selectedCategories, setSelectedCategories] = useState<
+    CategoryOption[] | null
+  >(null); // Ausgewählte Kategorien
   const [articles, setArticles] = useState<ArticleType[]>([]); // Gefundene Artikel
   const [isLoading, setIsLoading] = useState<boolean>(false); // Ladeanzeige
   const [hasFilter, setHasFilter] = useState<boolean>(false);
@@ -56,24 +66,30 @@ const Filterpage: React.FC = () => {
   const countries: Country[] = countriesData as Country[];
   const categories: Category[] = categorysData.categorys as Category[];
 
-  const countryOptions: CountryOption[] = countries.map((c) => ({ value: c.code, label: c.name }));
-  const categoryOptions: CategoryOption[] = categories.map((cat) => ({ value: cat, label: cat }));
+  const countryOptions: CountryOption[] = countries.map((c) => ({
+    value: c.code,
+    label: c.name,
+  }));
+  const categoryOptions: CategoryOption[] = categories.map((cat) => ({
+    value: cat,
+    label: cat,
+  }));
 
   // Liste an API-Schlüsseln zur Umgehung von Rate Limits
   const apiKeys = [
-    'pub_808525d68114469f62b1f6a43852d9efefa5e',
-    'pub_811242e708de4442cba69eb51a033854b4acd',
-    'pub_811282fa4967114ded81a5e6113a43759389d',
-    'pub_81184c0cf9b608ff16835478331619519d935',
-    'pub_82495cbea35080abad1e930ac1d03d2e3120a',
-    'pub_82499e416d9e96f438501b7195d708f135d86',
-    'pub_825006980031d31dab6b2d91aced6dce9ebb3',
-    'pub_825019d0afdcc7b687fe5f2511c087911deab'
+    "pub_808525d68114469f62b1f6a43852d9efefa5e",
+    "pub_811242e708de4442cba69eb51a033854b4acd",
+    "pub_811282fa4967114ded81a5e6113a43759389d",
+    "pub_81184c0cf9b608ff16835478331619519d935",
+    "pub_82495cbea35080abad1e930ac1d03d2e3120a",
+    "pub_82499e416d9e96f438501b7195d708f135d86",
+    "pub_825006980031d31dab6b2d91aced6dce9ebb3",
+    "pub_825019d0afdcc7b687fe5f2511c087911deab",
   ];
 
   // Artikel aus der API filtern, übersetzen und in den State setzen
   const filterArticles = async () => {
-    setHasFilter(true)
+    setHasFilter(true);
     setIsLoading(true);
     const fetchedArticles: any[] = []; // Alle gefundenen Roh-Artikel
     const articleFetchLimit = 40; // Max. zu ladende Artikel
@@ -88,7 +104,17 @@ const Filterpage: React.FC = () => {
 
         while (fetchedArticles.length < articleFetchLimit) {
           // Dynamisch generierter API-Aufruf basierend auf Filterauswahl
-          const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ''}${selectedCategories && selectedCategories.length > 0 ? `&category=${selectedCategories.map(c => c.value).join(',')}` : ''}${selectedCountries && selectedCountries.length > 0 ? `&country=${selectedCountries.map(c => c.value).join(',')}` : ''}${query !== '' ? `&q=${query}` : ''}`;
+          const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${
+            nextPage ? `&page=${nextPage}` : ""
+          }${
+            selectedCategories && selectedCategories.length > 0
+              ? `&category=${selectedCategories.map((c) => c.value).join(",")}`
+              : ""
+          }${
+            selectedCountries && selectedCountries.length > 0
+              ? `&country=${selectedCountries.map((c) => c.value).join(",")}`
+              : ""
+          }${query !== "" ? `&q=${query}` : ""}`;
 
           const response = await fetch(url);
 
@@ -106,7 +132,7 @@ const Filterpage: React.FC = () => {
           if (!nextPage) break;
         }
       } catch (err) {
-        console.error('Error: ', err);
+        console.error("Error: ", err);
       }
     }
 
@@ -115,13 +141,23 @@ const Filterpage: React.FC = () => {
     const targetLang = i18n.language; // Sprache aus Dropdown
 
     // Artikel filtern, normalisieren und übersetzen
-    for (let i = 0; i < fetchedArticles.length && finalArticles.length < 25; i++) {
+    for (
+      let i = 0;
+      i < fetchedArticles.length && finalArticles.length < 25;
+      i++
+    ) {
       const article = fetchedArticles[i];
       if (!article) continue;
 
       // Titel und Beschreibung übersetzen
-      const translatedTitle = await translateText(article.title || '', targetLang);
-      const translatedDesc = await translateText(article.description || '', targetLang);
+      const translatedTitle = await translateText(
+        article.title || "",
+        targetLang
+      );
+      const translatedDesc = await translateText(
+        article.description || "",
+        targetLang
+      );
 
       const validArticle: ArticleType = {
         id: article.id,
@@ -148,53 +184,74 @@ const Filterpage: React.FC = () => {
   };
 
   return (
-    <div className='filterpage-container'>
-      <h1>{t('filter.title')}</h1>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        filterArticles();
-      }}>
+    <div className="filterpage-container">
+      <h1>{t("filter.title")}</h1>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          filterArticles();
+        }}
+      >
         <div className="form-group">
-          <label htmlFor="query">{t('filter.search')}</label>
           <input
             type="text"
             name="query"
             id="query"
-            placeholder="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             maxLength={100}
+            placeholder={t("filter.search")}
           />
         </div>
 
-        <div className='form-group'>
-          <div className='countrie-select-container'>
+        <div className="form-group">
+          <div className="countrie-select-container">
+          <div className="select-wrapper">
             <Select
               isMulti
               name="countries"
               options={countryOptions}
               className="countrie-select"
               classNamePrefix="select"
-              placeholder={t('filter.country-selector')}
-              onChange={(selected) => setSelectedCountries(selected as CountryOption[])}
+              placeholder={t("filter.country-selector")}
+              onChange={(selected) =>
+                setSelectedCountries(selected as CountryOption[])
+              }
               value={selectedCountries}
             />
+            </div>
           </div>
         </div>
 
-        <div className='form-group'>
-          <label htmlFor="categories">{t('filter.categories')}</label>
-          <div className='category-button-container'>
+        <div className="form-group">
+          <label htmlFor="categories" className="categories-label">{t("filter.categories")}</label>
+          <div className="category-button-container">
             {categoryOptions.map((category) => (
               <button
                 key={category.value}
-                className={selectedCategories?.some(sc => sc.value === category.value) ? 'category-button-selected' : 'category-button'}
+                className={
+                  selectedCategories?.some((sc) => sc.value === category.value)
+                    ? "category-button-selected"
+                    : "category-button"
+                }
                 onClick={(e) => {
                   e.preventDefault();
-                  if (selectedCategories?.some(sc => sc.value === category.value)) {
-                    setSelectedCategories(selectedCategories.filter(sc => sc.value !== category.value));
+                  if (
+                    selectedCategories?.some(
+                      (sc) => sc.value === category.value
+                    )
+                  ) {
+                    setSelectedCategories(
+                      selectedCategories.filter(
+                        (sc) => sc.value !== category.value
+                      )
+                    );
                   } else {
-                    setSelectedCategories(selectedCategories ? [...selectedCategories, category] : [category]);
+                    setSelectedCategories(
+                      selectedCategories
+                        ? [...selectedCategories, category]
+                        : [category]
+                    );
                   }
                 }}
               >
@@ -203,7 +260,9 @@ const Filterpage: React.FC = () => {
             ))}
           </div>
         </div>
-        <button type="submit" className="submit-button">{t('filter.use')}</button>
+        <button type="submit" className="submit-button">
+          {t("filter.use")}
+        </button>
       </form>
       {isLoading ? (
         <span className="loader"></span>
@@ -215,38 +274,37 @@ const Filterpage: React.FC = () => {
             .slice(0, visibleCount)
             .map((art, index) => (
               <Link
-        to={`/article/${index}`}
-        state={{ article: art }}
-       className="article-link"
-      key={art.id}
-      >
-        <div className="article-outer-container">
-        <h1 className="article-title">{art.title}</h1>
-                              
-        <div
-        className="articles-container"
-          key={art.id}
-     id={index.toString()}
-          >
-                                
-                                
-        <img className="article-img" src={art.image_url} />
-                                
-      </div>
-        <p className="article-categorys">Kategorie: {art.category.join(", ")}</p>
-          </div>
-         </Link>
+                to={`/article/${index}`}
+                state={{ article: art }}
+                className="article-link"
+                key={art.id}
+              >
+                <div className="article-outer-container">
+                  <h1 className="article-title">{art.title}</h1>
+
+                  <div
+                    className="articles-container"
+                    key={art.id}
+                    id={index.toString()}
+                  >
+                    <img className="article-img" src={art.image_url} />
+                  </div>
+                  <p className="article-categorys">
+                    {t("filter.categories")} {art.category.join(", ")}
+                  </p>
+                </div>
+              </Link>
             ))}
 
           <button
             className="loadMore"
             onClick={() => setVisibleCount((prev) => prev + 5)}
           >
-            Mehr laden
+            {t("navigation.load")}
           </button>
         </>
       ) : (
-        <p>{hasFilter ? t('errors.articles') : ''}</p>
+        <p>{hasFilter ? t("errors.articles") : ""}</p>
       )}
     </div>
   );
