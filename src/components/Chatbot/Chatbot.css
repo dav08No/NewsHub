@@ -49,11 +49,9 @@
 
 .chat-bubble-bot { 
     max-width: 50%;
-    margin-left: 25%;
-    margin-right: 25%;
-   padding-left: 8px;
-   padding-right: 8px;
-   padding-bottom: 10%;
+    margin-left: 5%;
+    margin-right: 50%;
+   padding-bottom: 12%;
 }
 .chat-input-container {
    
