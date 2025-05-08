@@ -34,6 +34,7 @@ type CountryOption = {
 };
 
 type CategoryOption = {
+  
   value: string;
   label: string;
 };
@@ -159,6 +160,7 @@ const Filterpage: React.FC = () => {
             type="text"
             name="query"
             id="query"
+            placeholder="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             maxLength={100}
@@ -223,9 +225,11 @@ const Filterpage: React.FC = () => {
                   key={art.id}
                   id={index.toString()}
                 >
+                  <div className="article-title-container">
                   <h1 className="article-title">{art.title}</h1>
-                  <img className="article-img" src={art.image_url} />
                   <p className="article-categorys">{art.category.join(", ")}</p>
+                  </div>
+                  <img className="article-img" src={art.image_url} />
                 </div>
               </Link>
             ))}

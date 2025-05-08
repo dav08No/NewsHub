@@ -51,7 +51,6 @@ const Contact: React.FC = () => {
       setFormData({ name: "", email: "", message: "" }); // Clear form state
     }
   };
-
   return (
     <div className="contact-container">
       <h1 className="contact-header">{t('contact.title')}</h1>

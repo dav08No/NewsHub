@@ -1,7 +1,7 @@
 import * as React from "react";
-import useChatbot from "./components/hooks/useChatbot";
+import useChatbot from "../hooks/useChatbot";
 import Markdown from 'react-markdown'
-import useChatScroll from "./components/hooks/useChatScroll";
+import useChatScroll from "../hooks/useChatScroll";
 import { useTranslation } from "react-i18next";
 
 const ChatComponent: React.FunctionComponent = () => {
@@ -61,7 +61,7 @@ const ChatComponent: React.FunctionComponent = () => {
           className={`chat-send-btn ${isSending ? "chat-send-btn-disabled" : ""}`}
           disabled={isSending}
         >
-          {t('chatbot.send')}
+          Senden
         </button>
       </div>
     </div>

@@ -7,7 +7,9 @@ body {
   line-height: 1.6;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 700;
   margin-top: 20px;
 }
@@ -29,44 +31,72 @@ p {
   font-size: 2.8rem;
   font-weight: 700;
   background: linear-gradient(90deg, #007bff, #0056b3); /* Blue gradient */
-}
-.title-ourTeam, .title-ourProject {
-  font-size: 1.3rem;
-  font-weight: 600;
-  background: linear-gradient(90deg, #064e9b, #012852); /* Blue gradient */
-}
-
-.title-ourTeam, .title-ourProject, .title-about {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
   margin-bottom: 50px;
   position: relative;
 }
-
-
 .title-about::after {
-  background: #007bff; /* Bright blue */
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Subtle blue glow */
-}
-
-.title-ourTeam::after, .title-ourProject::after {
-  background: #01356d; 
-  box-shadow: 0 0 8px rgba(3, 81, 165, 0.5); /* Subtle blue glow */
-}
-
-.title-ourTeam::after, .title-ourProject::after, .title-about::after {
   content: "";
   position: absolute;
   width: 70px;
   height: 3px;
+  background: #007bff; /* Bright blue */
   bottom: -10px;
   left: 50%;
   transform: translateX(-50%);
   border-radius: 3px;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Subtle blue glow */
 }
 
-.textTeam, .description, .textProjekt  {
+.title-ourTeam {
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #064e9b, #012852); /* Blue gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+}
+.title-ourTeam::after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 3px;
+  background: #01356d; /* Bright blue */
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(3, 81, 165, 0.5); /* Subtle blue glow */
+}
+
+.title-ourProject {
+  font-size: 1.3rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #064e9b, #012852); /* Blue gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+}
+.title-ourProject::after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 3px;
+  background: #01356d; /* Dark blue */
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(3, 81, 165, 0.5); /* Subtle blue glow */
+}
+
+.textTeam {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -74,28 +104,45 @@ p {
   width: fit-content;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.textTeam:hover, .textProjekt:hover, .description:hover {
+.textTeam:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
 }
 
 .textProjekt {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: fit-content;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: 40px;
 }
-
+.textProjekt:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
 .profile {
   width: 200px;
   border-radius: 50%;
   padding: 6px;
 }
 .description {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  width: fit-content;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: 20px;
 }
-
+.description:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
 .pepole {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   justify-items: center;
 }
-
