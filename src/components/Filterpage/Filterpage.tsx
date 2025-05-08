@@ -1,16 +1,33 @@
-import React, { useEffect, useState } from "react";
-import Select from "react-select";
-import countriesData from "./countries.json";
-import categorysData from "./categorys.json";
-import "./Filterpage.css";
-import { ArticleType } from "../Homepage/Homepage";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import Select from 'react-select';
+import countriesData from './countries.json';
+import categorysData from './categorys.json';
+import './Filterpage.css';
+import { ArticleType } from '../Homepage/Homepage';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
+// Übersetzungsfunktion: verwendet eine kostenlose Google-API zum Übersetzen von Texten (nicht DeepL)
+const translateText = async (text: string, targetLang: string): Promise<string> => {
+  try {
+    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+    const data = await res.json();
+    return data[0]?.map((t: any) => t[0]).join('') || text;
+  } catch (error) {
+    console.error('Translation failed', error);
+    return text; // Falls Fehler, gib Originaltext zurück
+  }
+};
+
+// Typdefinitionen für Länder und Kategorien
+
+// Einzelnes Land mit Name und Ländercode
 type Country = {
   name: string;
   code: string;
 };
 
+// Optionen für react-select Komponenten
 type CountryOption = {
   value: string;
   label: string;
@@ -21,78 +38,60 @@ type CategoryOption = {
   label: string;
 };
 
+// Kategorie ist einfacher String
 type Category = string;
 
-const Filterpage = () => {
-  const [query, setQuery] = useState<string>(""); // value must be URL-encoded and the maximum character limit permitted is 100
-  const [selectedCountries, setSelectedCountries] = useState<
-    CountryOption[] | null
-  >(null);
-  const [selectedCategories, setSelectedCategories] = useState<
-    CategoryOption[] | null
-  >(null);
-  const [articles, setArticles] = useState<ArticleType[]>([]);
-  // State to track whether articles are being loaded
-  const [isLoading, setIsLoading] = useState(false);
+const Filterpage: React.FC = () => {
+  const [query, setQuery] = useState<string>(''); // Suchbegriff (max. 100 Zeichen)
+  const [selectedCountries, setSelectedCountries] = useState<CountryOption[] | null>(null); // Ausgewählte Länder
+  const [selectedCategories, setSelectedCategories] = useState<CategoryOption[] | null>(null); // Ausgewählte Kategorien
+  const [articles, setArticles] = useState<ArticleType[]>([]); // Gefundene Artikel
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Ladeanzeige
+  const [hasFilter, setHasFilter] = useState<boolean>(false);
   const [visibleCount, setVisibleCount] = useState(10);
+  const { t, i18n } = useTranslation(); // Lokalisierung
 
+  // Daten aus JSON-Dateien laden und umwandeln
   const countries: Country[] = countriesData as Country[];
   const categories: Category[] = categorysData.categorys as Category[];
 
-  const countryOptions: CountryOption[] = countries.map((c) => ({
-    value: c.code,
-    label: c.name,
-  }));
+  const countryOptions: CountryOption[] = countries.map((c) => ({ value: c.code, label: c.name }));
+  const categoryOptions: CategoryOption[] = categories.map((cat) => ({ value: cat, label: cat }));
 
-  const categoryOptions: CategoryOption[] = categories.map((cat) => ({
-    value: cat,
-    label: cat,
-  }));
-
-  // Array of API keys to use in case one hits its rate limit
+  // Liste an API-Schlüsseln zur Umgehung von Rate Limits
   const apiKeys = [
-    "pub_808525d68114469f62b1f6a43852d9efefa5e", // Davide
-    "pub_811242e708de4442cba69eb51a033854b4acd", // Fabian
-    "pub_811282fa4967114ded81a5e6113a43759389d", // Joel
-    "pub_81184c0cf9b608ff16835478331619519d935", // Davide
-    "pub_82495cbea35080abad1e930ac1d03d2e3120a", // Flurin / Minion
-    "pub_82499e416d9e96f438501b7195d708f135d86", // Flurin / Minion
-    "pub_825006980031d31dab6b2d91aced6dce9ebb3", // Leon
-    "pub_825019d0afdcc7b687fe5f2511c087911deab", // Flurin / Minion
+    'pub_808525d68114469f62b1f6a43852d9efefa5e',
+    'pub_811242e708de4442cba69eb51a033854b4acd',
+    'pub_811282fa4967114ded81a5e6113a43759389d',
+    'pub_81184c0cf9b608ff16835478331619519d935',
+    'pub_82495cbea35080abad1e930ac1d03d2e3120a',
+    'pub_82499e416d9e96f438501b7195d708f135d86',
+    'pub_825006980031d31dab6b2d91aced6dce9ebb3',
+    'pub_825019d0afdcc7b687fe5f2511c087911deab'
   ];
 
-  // Function that fetches articles from the news API
+  // Artikel aus der API filtern, übersetzen und in den State setzen
   const filterArticles = async () => {
-    setIsLoading(true); //Start Loading state
-    const fetchedArticles: any[] = []; // Hold all fetched articles
-    const articleFetchLimit = 40; // Maximum number of articles to fetch in total
+    setHasFilter(true)
+    setIsLoading(true);
+    const fetchedArticles: any[] = []; // Alle gefundenen Roh-Artikel
+    const articleFetchLimit = 40; // Max. zu ladende Artikel
 
-    // Try each API key in sequence until articles are fetched successfully
     for (let i = 0; i < apiKeys.length; i++) {
       if (fetchedArticles.length >= articleFetchLimit) break;
-
       const apiKey = apiKeys[i];
       console.log(`Using API key ${apiKey}`);
 
       try {
         let nextPage: string | null = null;
 
-        // Continue fetching pages from the current API key until limit is reached or no more pages
         while (fetchedArticles.length < articleFetchLimit) {
-          const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${
-            nextPage ? `&page=${nextPage}` : ""
-          }${
-            selectedCategories && selectedCategories.length > 0
-              ? `&category=${selectedCategories.map((c) => c.value).join(",")}`
-              : ""
-          }${
-            selectedCountries && selectedCountries.length > 0
-              ? `&country=${selectedCountries.map((c) => c.value).join(",")}`
-              : ""
-          }          ${query !== "" ? `&q=${query}` : ""}`;
+          // Dynamisch generierter API-Aufruf basierend auf Filterauswahl
+          const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ''}${selectedCategories && selectedCategories.length > 0 ? `&category=${selectedCategories.map(c => c.value).join(',')}` : ''}${selectedCountries && selectedCountries.length > 0 ? `&country=${selectedCountries.map(c => c.value).join(',')}` : ''}${query !== '' ? `&q=${query}` : ''}`;
+
           const response = await fetch(url);
 
-          // Stop using this key if rate limit is reached
+          // Wenn API-Limit erreicht, nächsten Key probieren
           if (response.status === 429) {
             console.warn(`Rate limit reached for API key ${apiKey}`);
             break;
@@ -101,37 +100,34 @@ const Filterpage = () => {
           const data = await response.json();
           if (!data?.results?.length) break;
 
-          // Add the fetched results to the total
           fetchedArticles.push(...data.results);
           nextPage = data.nextPage || null;
-
-          // If there is no next page, exit loop
           if (!nextPage) break;
         }
       } catch (err) {
-        // If fetch fails, continue with next API key
-        console.error("Error: ", err);
+        console.error('Error: ', err);
       }
     }
 
-    // Filter and normalize the articles for display
-    const titleSet = new Set<string>(); // Used to avoid duplicates by title
-    const finalArticles: ArticleType[] = [];
-    for (
-      let i = 0;
-      i < fetchedArticles.length && finalArticles.length < 25;
-      i++
-    ) {
+    const titleSet = new Set<string>(); // Zum Entfernen doppelter Titel
+    const finalArticles: ArticleType[] = []; // Übersetzte und bereinigte Artikel
+    const targetLang = i18n.language; // Sprache aus Dropdown
+
+    // Artikel filtern, normalisieren und übersetzen
+    for (let i = 0; i < fetchedArticles.length && finalArticles.length < 25; i++) {
       const article = fetchedArticles[i];
       if (!article) continue;
 
-      // Normalize and validate each article
+      // Titel und Beschreibung übersetzen
+      const translatedTitle = await translateText(article.title || '', targetLang);
+      const translatedDesc = await translateText(article.description || '', targetLang);
+
       const validArticle: ArticleType = {
         id: article.id,
-        title: article.title,
+        title: translatedTitle,
         link: article.link,
         category: article.category,
-        description: article.description,
+        description: translatedDesc,
         image_url: article.image_url,
         language: article.language,
         source_name: article.source_name,
@@ -139,31 +135,26 @@ const Filterpage = () => {
         country: article.country,
       };
 
-      // Avoid adding duplicate titles
+      // Doppelte Titel ausschließen
       if (!titleSet.has(validArticle.title)) {
         titleSet.add(validArticle.title);
         finalArticles.push(validArticle);
       }
     }
 
-    // Update state with the final filtered article list
     setArticles(finalArticles);
-    setIsLoading(false); // Loading complete
+    setIsLoading(false);
   };
 
   return (
-    <div className="filterpage-container">
-      <h1 className="title">Filtern</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          console.log("Query:", query);
-          console.log("Selected Countries:", selectedCountries);
-          console.log("Selected Categories:", selectedCategories);
-        }}
-      >
+    <div className='filterpage-container'>
+      <h1>{t('filter.title')}</h1>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        filterArticles();
+      }}>
         <div className="form-group">
-          <label htmlFor="query">Suchen</label>
+          <label htmlFor="query">{t('filter.search')}</label>
           <input
             type="text"
             name="query"
@@ -174,54 +165,34 @@ const Filterpage = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="countries">Länder</label>
-          <div className="countrie-select-container">
+        <div className='form-group'>
+          <div className='countrie-select-container'>
             <Select
               isMulti
               name="countries"
               options={countryOptions}
               className="countrie-select"
               classNamePrefix="select"
-              placeholder="Länder auswählen..."
-              onChange={(selected) =>
-                setSelectedCountries(selected as CountryOption[])
-              }
+              placeholder={t('filter.country-selector')}
+              onChange={(selected) => setSelectedCountries(selected as CountryOption[])}
               value={selectedCountries}
             />
           </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="categories">Kategorien</label>
-          <div className="category-button-container">
+        <div className='form-group'>
+          <label htmlFor="categories">{t('filter.categories')}</label>
+          <div className='category-button-container'>
             {categoryOptions.map((category) => (
               <button
                 key={category.value}
-                className={
-                  selectedCategories?.some((sc) => sc.value === category.value)
-                    ? "category-button-selected"
-                    : "category-button"
-                }
-                onClick={() => {
-                  if (
-                    selectedCategories?.some(
-                      (sc) => sc.value === category.value
-                    )
-                  ) {
-                    // If already selected, remove it
-                    setSelectedCategories(
-                      selectedCategories.filter(
-                        (sc) => sc.value !== category.value
-                      )
-                    );
+                className={selectedCategories?.some(sc => sc.value === category.value) ? 'category-button-selected' : 'category-button'}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (selectedCategories?.some(sc => sc.value === category.value)) {
+                    setSelectedCategories(selectedCategories.filter(sc => sc.value !== category.value));
                   } else {
-                    // If not selected, add it
-                    setSelectedCategories(
-                      selectedCategories
-                        ? [...selectedCategories, category]
-                        : [category]
-                    );
+                    setSelectedCategories(selectedCategories ? [...selectedCategories, category] : [category]);
                   }
                 }}
               >
@@ -230,17 +201,10 @@ const Filterpage = () => {
             ))}
           </div>
         </div>
-        <button
-          type="submit"
-          className="submit-button"
-          onClick={filterArticles}
-        >
-          Anwenden
-        </button>
+        <button type="submit" className="submit-button">{t('filter.use')}</button>
       </form>
       {isLoading ? (
-        // Show loading message while fetching data
-        <p>Loading articles...</p>
+        <span className="loader"></span>
       ) : articles.length > 0 ? (
         // Render each article if available
         <>
@@ -274,8 +238,7 @@ const Filterpage = () => {
           </button>
         </>
       ) : (
-        // Fallback message if no articles are available
-        <p>No articles available. Please try again later.</p>
+        <p>{hasFilter ? t('errors.articles') : ''}</p>
       )}
     </div>
   );
