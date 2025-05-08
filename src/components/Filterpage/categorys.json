@@ -9,13 +9,13 @@
     "food",
     "health",
     "lifestyle",
-    "other",
     "politics",
     "science",
     "sports",
     "technology",
     "top",
     "tourism",
-    "world"
+    "world",
+    "other"
   ]
 }

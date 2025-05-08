@@ -1,4 +1,4 @@
-.loader {
+.loader-1 {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -10,8 +10,8 @@
   color: #3a3dff;
 }
 
-.loader:before,
-.loader:after {
+.loader-1:before,
+.loader-1:after {
   content: '';
   display: block;
   position: absolute;
@@ -24,7 +24,7 @@
   animation: 1s spin linear infinite;
 }
 
-.loader:after {
+.loader-1:after {
   color: #FF3D00;
   transform: rotateY(70deg);
   animation-delay: .4s;

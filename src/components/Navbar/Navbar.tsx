@@ -38,7 +38,7 @@ const NavBar: React.FC = () => {
         </NavLink>
       </li>
       <li>
-        <select onChange={changeLanguage} value={i18n.language}>
+        <select onChange={changeLanguage} value={i18n.language} className="languageSelector">
           <option value="en">English</option>
           <option value="de">Deutsch</option>
           <option value="fr">Francais</option>

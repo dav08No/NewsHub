@@ -44,7 +44,7 @@ const AboutUs = () => {
             <div className="description">
               <img className="profile" src="profile.jpg" />
               <h3>{t('about.vlt')}</h3>
-              <p>{t('about.contact')}</p>
+              <p className="about-contact" dangerouslySetInnerHTML={{ __html: t('about.contact') }} />
             </div>
           </div>
         </div>

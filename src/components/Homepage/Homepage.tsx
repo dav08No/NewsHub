@@ -35,7 +35,7 @@ const Homepage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [visibleArticles, setVisibleArticles] = useState(10);
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Array of API keys to use in case one hits its rate limit
   const apiKeys = [
@@ -143,7 +143,7 @@ const Homepage: React.FC = () => {
       <h1 className="title">NewsHub</h1>
       {isLoading ? (
         // Show loading message while fetching data
-        <span className="loader"></span>
+        <span className="loader-1"></span>
       ) : articles.length > 0 ? (
         // Render each article if available
         <>
@@ -178,12 +178,12 @@ const Homepage: React.FC = () => {
             className="loadMore"
             onClick={() => setVisibleArticles((prev) => prev + 10)}
           >
-            Mehr laden
+           {t('navigation.load')}
           </button>
         </>
       ) : (
         // Fallback message if no articles are available
-        <p>No articles available. Please try again later.</p>
+        <p>{t('errors.articles')}</p>
       )}
     </div>
   );
