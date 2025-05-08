@@ -26,7 +26,7 @@ const Detailview: React.FC = () => {
             </p>
           </div>
           <a href={article.link} target="_blank" rel="noopener noreferrer">
-          {t("detailview.link")}
+          zum Artikel
         </a>
         </div>
 

@@ -17,7 +17,7 @@ type CountryOption = {
 };
 
 type CategoryOption = {
-  
+
   value: string;
   label: string;
 };
@@ -250,23 +250,27 @@ const Filterpage = () => {
             .slice(0, visibleCount)
             .map((art, index) => (
               <Link
-                to={`/article/${index}`}
-                state={{ article: art }}
-                className="article-link"
-                key={art.id}
-              >
-                <div
-                  className="articles-container"
-                  key={art.id}
-                  id={index.toString()}
-                >
-                  <div className="article-title-container">
-                  <h1 className="article-title">{art.title}</h1>
-                  <p className="article-categorys">{art.category.join(", ")}</p>
-                  </div>
-                  <img className="article-img" src={art.image_url} />
-                </div>
-              </Link>
+        to={`/article/${index}`}
+        state={{ article: art }}
+       className="article-link"
+      key={art.id}
+      >
+        <div className="article-outer-container">
+        <h1 className="article-title">{art.title}</h1>
+                              
+        <div
+        className="articles-container"
+          key={art.id}
+     id={index.toString()}
+          >
+                                
+                                
+        <img className="article-img" src={art.image_url} />
+                                
+      </div>
+        <p className="article-categorys">Kategorie: {art.category.join(", ")}</p>
+          </div>
+         </Link>
             ))}
 
           <button
