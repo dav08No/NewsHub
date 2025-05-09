@@ -104,17 +104,14 @@ const Filterpage: React.FC = () => {
 
         while (fetchedArticles.length < articleFetchLimit) {
           // Dynamisch generierter API-Aufruf basierend auf Filterauswahl
-          const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${
-            nextPage ? `&page=${nextPage}` : ""
-          }${
-            selectedCategories && selectedCategories.length > 0
+          const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ""
+            }${selectedCategories && selectedCategories.length > 0
               ? `&category=${selectedCategories.map((c) => c.value).join(",")}`
               : ""
-          }${
-            selectedCountries && selectedCountries.length > 0
+            }${selectedCountries && selectedCountries.length > 0
               ? `&country=${selectedCountries.map((c) => c.value).join(",")}`
               : ""
-          }${query !== "" ? `&q=${query}` : ""}`;
+            }${query !== "" ? `&q=${query}` : ""}`;
 
           const response = await fetch(url);
 
@@ -185,7 +182,7 @@ const Filterpage: React.FC = () => {
 
   return (
     <div className="filterpage-container">
-      <h1>{t("filter.title")}</h1>
+      <h1 className="title">{t("filter.title")}</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -206,19 +203,19 @@ const Filterpage: React.FC = () => {
 
         <div className="form-group">
           <div className="countrie-select-container">
-          <div className="select-wrapper">
-            <Select
-              isMulti
-              name="countries"
-              options={countryOptions}
-              className="countrie-select"
-              classNamePrefix="select"
-              placeholder={t("filter.country-selector")}
-              onChange={(selected) =>
-                setSelectedCountries(selected as CountryOption[])
-              }
-              value={selectedCountries}
-            />
+            <div className="select-wrapper">
+              <Select
+                isMulti
+                name="countries"
+                options={countryOptions}
+                className="countrie-select"
+                classNamePrefix="select"
+                placeholder={t("filter.country-selector")}
+                onChange={(selected) =>
+                  setSelectedCountries(selected as CountryOption[])
+                }
+                value={selectedCountries}
+              />
             </div>
           </div>
         </div>
@@ -267,8 +264,8 @@ const Filterpage: React.FC = () => {
       {isLoading ? (
         <span className="loader"></span>
       ) : articles.length > 0 ? (
-        // Render each article if available
-        <>
+        // Articles grid container for side-by-side layout
+        <div className="articles-grid-container">
           {articles
             .filter((article) => !!article.image_url) // Only articles with an Imageurl
             .slice(0, visibleCount)
@@ -287,7 +284,7 @@ const Filterpage: React.FC = () => {
                     key={art.id}
                     id={index.toString()}
                   >
-                    <img className="article-img" src={art.image_url} />
+                    <img className="article-img" src={art.image_url} alt={art.title} />
                   </div>
                   <p className="article-categorys">
                     {t("filter.categories")} {art.category.join(", ")}
@@ -295,16 +292,19 @@ const Filterpage: React.FC = () => {
                 </div>
               </Link>
             ))}
-
-          <button
-            className="loadMore"
-            onClick={() => setVisibleCount((prev) => prev + 5)}
-          >
-            {t("navigation.load")}
-          </button>
-        </>
+        </div>
       ) : (
         <p>{hasFilter ? t("errors.articles") : ""}</p>
+      )}
+
+      {/* Load more button outside the grid container */}
+      {articles.length > 0 && visibleCount < articles.length && (
+        <button
+          className="loadMore"
+          onClick={() => setVisibleCount((prev) => prev + 5)}
+        >
+          {t("navigation.load")}
+        </button>
       )}
     </div>
   );

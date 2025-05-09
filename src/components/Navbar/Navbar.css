@@ -1,63 +1,245 @@
-ul {
+/* Grundlegende Navbar-Styles */
+nav {
+    padding: 0;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.nav-container {
     display: flex;
     justify-content: center;
+    /* Zentriert die Tabs */
+    align-items: center;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 70px;
+}
+
+/* Navigation Links */
+ul {
+    display: flex;
+    align-items: center;
     padding: 0;
     margin: 0;
     list-style: none;
+    transition: all 0.3s ease;
 }
 
 li {
-    display: inline-block;
-    margin: 0 15px;
-    position: relative;
+    margin: 0 10px;
+    white-space: nowrap;
+    /* Original Eigenschaft beibehalten */
 }
 
 li a {
-    display: inline-block;
+    display: block;
     padding: 10px 20px;
     color: black;
+    /* Original Farbe wiederhergestellt */
     font-weight: bold;
+    /* Original Stärke wiederhergestellt */
     text-decoration: none;
     background-color: #f0f0f0;
-    border-radius: 5px;
+    /* Original Farbe wiederhergestellt */
+    border-radius: 8px;
+    /* Original Radius wiederhergestellt */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 li a:hover {
     background-color: #007BFF;
+    /* Original Hover-Farbe wiederhergestellt */
     color: white;
-    text-decoration: none;
-}
-
-li a:active {
-    background-color: #0056b3;
+    /* Original Hover-Textfarbe wiederhergestellt */
 }
 
 li a.active {
     background-color: #007BFF;
+    /* Original aktive Farbe wiederhergestellt */
     color: white;
 }
 
+/* Sprachauswahl mit Dropdown-Pfeil */
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    /* Stellt sicher, dass der Wrapper die volle Breite einnimmt */
+}
+
+.select-wrapper::after {
+    content: "▼";
+    font-size: 0.7rem;
+    color: #666;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
 .languageSelector {
-    padding: 10px 20px;
+    padding: 10px 36px 10px 20px;
+    /* Extra Platz für den Pfeil */
     color: black;
     font-weight: bold;
     background-color: #f0f0f0;
-    border-radius: 5px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    font-family: inherit;
     font-size: 1rem;
-  }
-   
-  .languageSelector:hover {
-    background-color: #007BFF;
-    color: white;
-  }
-   
-  .languageSelector:focus {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    appearance: none;
+    /* Entfernt den Standard-Pfeil */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    /* Stellt sicher, dass das Dropdown die volle Breite einnimmt */
+    box-sizing: border-box;
+    /* Behält die Breite inkl. Padding */
+}
+
+.languageSelector:hover,
+.languageSelector:focus {
+    background-color: #e0e0e0;
+    /* Hellere Farbe für Hover */
+    color: #333;
+    /* Dunklere Textfarbe für besseren Kontrast */
     outline: none;
-    background-color: #007BFF;
-    color: white;
-  }
+}
+
+.language-selector-option {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Burger-Button mit Animation */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 100;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+/* GROSSE BILDSCHIRME */
+@media (min-width: 1200px) {
+    li {
+        margin: 0 10px;
+    }
+
+    li a {
+        padding: 10px 20px;
+    }
+}
+
+/* MITTLERE BILDSCHIRME (Tablets) */
+@media (max-width: 992px) {
+    li {
+        margin: 0 5px;
+    }
+
+    li a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* MOBILE BILDSCHIRME */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 20px;
+    }
+
+    .nav-container {
+        width: 100%;
+        flex-wrap: wrap;
+        height: auto;
+        padding: 0;
+        justify-content: flex-start;
+        /* Links ausrichten im mobilen Layout */
+    }
+
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+    }
+
+    ul {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+        overflow: hidden;
+        margin-top: 40px;
+        /* Mehr Platz für den Burger-Button */
+    }
+
+    ul.open {
+        display: flex;
+    }
+
+    li {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    li a,
+    .languageSelector {
+        width: 100%;
+        text-align: left;
+        padding-left: 16px;
+    }
+
+    /* Dropdown-Pfeil Position anpassen im mobilen Layout */
+    .select-wrapper::after {
+        right: 20px;
+    }
+}
+
+/* Animation für den Burger-Button */
+.nav-open .menu-toggle .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.nav-open .menu-toggle .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-open .menu-toggle .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Fix für Language Item Styling */
+.language-item {
+    margin-top: 0;
+    /* Entfernen des zusätzlichen Abstands oben */
+    display: flex;
+    align-items: center;
+}
+
+.language-item .select-wrapper {
+    min-width: 120px;
+    /* Gibt dem Dropdown eine Mindestbreite */
+}
+
+/* Verbesserte Konsistenz der Navigation */
+.nav-list-item {
+    display: flex;
+    align-items: center;
+}

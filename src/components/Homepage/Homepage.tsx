@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Homepage.css';
+import './../Filterpage/Filterpage.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -147,38 +148,27 @@ const Homepage: React.FC = () => {
       ) : articles.length > 0 ? (
         // Render each article if available
         <>
-          {articles
-            .filter((article) => !!article.image_url) // Only articles with an Imageurl
-            .slice(0, visibleArticles)
-            .map((art, index) => (
-              <Link
-                to={`/article/${index}`}
-                state={{ article: art }}
-                className="article-link"
-                key={art.id}
-              >
-                <div className="article-outer-container">
-                <h1 className="article-title">{art.title}</h1>
-                
-                <div
-                  className="articles-container"
-                  key={art.id}
-                  id={index.toString()}
-                >
-                  
-                  
-                  <img className="article-img" src={art.image_url} />
-                  
-                </div>
-                <p className="article-categorys">Kategorie: {art.category.join(", ")}</p>
-                </div>
-              </Link>
-            ))}
+          <div className="articles-grid-container">
+            {articles
+              .filter((article) => !!article.image_url)
+              .slice(0, visibleArticles)
+              .map((art, index) => (
+                <Link to={`/article/${index}`} state={{ article: art }} className="article-link" key={art.id}>
+                  <div className="article-outer-container">
+                    <div className="articles-container">
+                      <img className="article-img" src={art.image_url} alt={art.title} />
+                    </div>
+                    <h2 className="article-title">{art.title}</h2>
+                    <p className="article-categorys">Kategorie: {art.category.join(", ")}</p>
+                  </div>
+                </Link>
+              ))}
+          </div>
           <button
             className="loadMore"
             onClick={() => setVisibleArticles((prev) => prev + 10)}
           >
-           {t('navigation.load')}
+            {t('navigation.load')}
           </button>
         </>
       ) : (

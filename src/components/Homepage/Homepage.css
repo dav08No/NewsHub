@@ -85,3 +85,15 @@
     box-shadow: .2em -.2em 0 0 currentcolor;
   }
 }
+
+@media (min-width: 600px) {
+  .articles-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .articles-grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
