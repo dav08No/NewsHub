@@ -26,8 +26,8 @@ const Detailview: React.FC = () => {
             </p>
           </div>
           <a href={article.link} target="_blank" rel="noopener noreferrer">
-         {t('detailview.link')}
-        </a>
+            {t('detailview.link')}
+          </a>
         </div>
       </div>
     );
@@ -44,12 +44,12 @@ const Detailview: React.FC = () => {
           <div className="article-container">
             <p className="article">
               {" "}
-              <span className="article-title">Beschreibung:</span> <br />{" "}
+              <span className="article-title">{t('detailview.description')}</span> <br />{" "}
               <span className="article-description">{article.description}</span>
             </p>
           </div>
           <a href={article.link} target="_blank" rel="noopener noreferrer" className="link">
-          {t('detailview.link')}
+            {t('detailview.link')}
           </a>
         </div>
       </div>

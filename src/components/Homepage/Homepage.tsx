@@ -69,10 +69,12 @@ const Homepage: React.FC = () => {
         try {
           let nextPage: string | null = null;
 
-          // Continue fetching pages from the current API key until limit is reached or no more pages
+          // Continue fetching pages from the current API key until limit is reached or no more pages needed
           while (fetchedArticles.length < articleFetchLimit) {
             const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ""}`;
             const response = await fetch(url);
+
+            console.log(`Response status for key ${apiKey}:`, response.status);
 
             // Stop using this key if rate limit is reached
             if (response.status === 429) {
