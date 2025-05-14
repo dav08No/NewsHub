@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import countriesData from "./countries.json";
 import categorysData from "./categorys.json";
-import "./Filterpage.css";
+import './Filterpage.css';
 import { ArticleType } from "../Homepage/Homepage";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";

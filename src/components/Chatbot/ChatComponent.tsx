@@ -3,7 +3,7 @@ import useChatbot from "../hooks/useChatbot";
 import Markdown from 'react-markdown';
 import useChatScroll from "../hooks/useChatScroll";
 import { useTranslation } from "react-i18next";
-import "./Chatbot.css";
+import 'Chatbot.css';
 
 const ChatComponent: React.FC = () => {
   const [input, setInput] = React.useState("");

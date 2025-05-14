@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import "./Kontakt.css"; // Importing CSS for styling
+import './Kontakt.css'; // Importing CSS for styling
 import { useTranslation } from "react-i18next";
 
 const Contact: React.FC = () => {

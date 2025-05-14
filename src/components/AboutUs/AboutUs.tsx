@@ -1,4 +1,4 @@
-import "./AboutUs.css";
+import './AboutUs.css';
 import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
 
