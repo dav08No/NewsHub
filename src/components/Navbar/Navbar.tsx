@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useRef } from "react";
-import "./NavBar.css";
+import './Navbar.css';
 
 const NavBar: React.FC = () => {
   const { t, i18n } = useTranslation();
