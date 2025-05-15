@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import './Homepage.css';
-import './../Filterpage/Filterpage.css';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
-const translateText = async (text: string, targetLang: string): Promise<string> => {
-  try {
-    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
-    const data = await res.json();
-    return data[0]?.map((t: any) => t[0]).join('') || text;
-  } catch (error) {
-    console.error('Translation failed', error);
-    return text; // Falls Fehler, gib Originaltext zurück
-  }
-};
+import './Homepage.css'
 
 // Define the structure of an article item
 export type ArticleType = {
@@ -29,14 +17,39 @@ export type ArticleType = {
   country: string[];
 };
 
+const translateText = async (text: string, targetLang: string): Promise<string> => {
+  try {
+    const res = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`);
+    const data = await res.json();
+    return data[0]?.map((t: any) => t[0]).join('') || text;
+  } catch (error) {
+    console.error('Translation failed', error);
+    return text; // Return original text if translation fails
+  }
+};
+
 const Homepage: React.FC = () => {
   // State for storing the final, filtered articles
   const [articles, setArticles] = useState<ArticleType[]>([]);
   // State to track whether articles are being loaded
   const [isLoading, setIsLoading] = useState(false);
-  const [visibleArticles, setVisibleArticles] = useState(10);
+  // State for the number of visible articles - adjust based on screen size
+  const [visibleArticles, setVisibleArticles] = useState(getInitialVisibleCount());
+  // State to track window width for responsive design decisions
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // Translation hook
   const { t, i18n } = useTranslation();
+
+  // Function to determine initial article count based on screen size
+  function getInitialVisibleCount() {
+    const width = window.innerWidth;
+    if (width >= 1920) return 30;
+    if (width >= 1440) return 24;
+    if (width >= 1024) return 18;
+    if (width >= 768) return 12;
+    return 6;
+  }
 
   // Array of API keys to use in case one hits its rate limit
   const apiKeys = [
@@ -51,25 +64,36 @@ const Homepage: React.FC = () => {
     'pub_82542de7da230979a9c41c5d5bf86d98034e2' // Fabian
   ];
 
+  // Handle window resize to adjust layout and visible articles
   useEffect(() => {
-    // Function that fetches articles from the news API
-    const fetchArticles = async () => {
-      setIsLoading(true); // Start loading state
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      setVisibleArticles(getInitialVisibleCount());
+    };
 
-      const fetchedArticles: any[] = []; // Hold all fetched articles
-      const articleFetchLimit = 40; // Maximum number of articles to fetch in total
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Effect for fetching articles
+  useEffect(() => {
+    const fetchArticles = async () => {
+      setIsLoading(true);
+
+      const fetchedArticles: any[] = [];
+      const articleFetchLimit = 100;
 
       // Try each API key in sequence until articles are fetched successfully
-      for (let i = 0; i < apiKeys.length; i++) {
-        if (fetchedArticles.length >= articleFetchLimit) break;
-
+      for (let i = 0; i < apiKeys.length && fetchedArticles.length < articleFetchLimit; i++) {
         const apiKey = apiKeys[i];
         console.log(`Using API key ${apiKey}`);
 
         try {
           let nextPage: string | null = null;
 
-          // Continue fetching pages from the current API key until limit is reached or no more pages needed
+          // Continue fetching pages from the current API key until limit is reached
           while (fetchedArticles.length < articleFetchLimit) {
             const url = `https://newsdata.io/api/1/news?apikey=${apiKey}&language=de,en${nextPage ? `&page=${nextPage}` : ""}`;
             const response = await fetch(url);
@@ -103,11 +127,11 @@ const Homepage: React.FC = () => {
       const finalArticles: ArticleType[] = [];
       const targetLang = i18n.language;
 
-      for (let i = 0; i < fetchedArticles.length && finalArticles.length < 25; i++) {
+      for (let i = 0; i < fetchedArticles.length && finalArticles.length < 80; i++) {
         const article = fetchedArticles[i];
         if (!article) continue;
 
-        // Titel und Beschreibung übersetzen
+        // Translate title and description
         const translatedTitle = await translateText(article.title || '', targetLang);
         const translatedDesc = await translateText(article.description || '', targetLang);
 
@@ -116,17 +140,17 @@ const Homepage: React.FC = () => {
           id: article.id,
           title: translatedTitle,
           link: article.link,
-          category: article.category,
+          category: article.category || [],
           description: translatedDesc,
           image_url: article.image_url,
           language: article.language,
           source_name: article.source_name,
           source_link: article.source_link,
-          country: article.country,
+          country: article.country || [],
         };
 
         // Avoid adding duplicate titles
-        if (!titleSet.has(validArticle.title)) {
+        if (!titleSet.has(validArticle.title) && validArticle.image_url) {
           titleSet.add(validArticle.title);
           finalArticles.push(validArticle);
         }
@@ -139,42 +163,76 @@ const Homepage: React.FC = () => {
 
     // Run fetch once when component mounts
     fetchArticles();
-  }, []);
+  }, [i18n.language]);
+
+  // Function to load more articles
+  const loadMoreArticles = () => {
+    // Calculate increment based on screen size
+    let increment = 5; // Small screens default
+    if (windowWidth >= 1920) increment = 15;
+    else if (windowWidth >= 1440) increment = 12;
+    else if (windowWidth >= 1024) increment = 9;
+    else if (windowWidth >= 768) increment = 6;
+
+    setVisibleArticles(prev => prev + increment);
+  };
+
+  // Function to truncate title if it's too long
+  const truncateTitle = (title: string, maxLength = 70) => {
+    if (title.length <= maxLength) return title;
+    return title.substring(0, maxLength) + '...';
+  };
 
   return (
     <div className="homepage-container">
       <h1 className="title">NewsHub</h1>
+
       {isLoading ? (
-        // Show loading message while fetching data
-        <span className="loader-1"></span>
+        <span className="loader"></span>
       ) : articles.length > 0 ? (
-        // Render each article if available
         <>
           <div className="articles-grid-container">
             {articles
-              .filter((article) => !!article.image_url)
               .slice(0, visibleArticles)
               .map((art, index) => (
-                <Link to={`/article/${index}`} state={{ article: art }} className="article-link" key={art.id}>
+                <Link
+                  to={`/article/${index}`}
+                  state={{ article: art }}
+                  className="article-link"
+                  key={art.id || index}
+                  id={art.id}
+                >
                   <div className="article-outer-container">
                     <div className="articles-container">
-                      <img className="article-img" src={art.image_url} alt={art.title} />
+                      <img
+                        className="article-img"
+                        src={art.image_url}
+                        alt={art.title}
+                        loading="lazy"
+                      />
                     </div>
-                    <h2 className="article-title">{art.title}</h2>
-                    <p className="article-categorys">Kategorie: {art.category.join(", ")}</p>
+                    <div className="article-content">
+                      <h2 className="article-title">{truncateTitle(art.title)}</h2>
+                      <p className="article-categorys">
+                        {t('filter.categories')}: {art.category?.join(", ")}
+                      </p>
+                    </div>
                   </div>
                 </Link>
               ))}
           </div>
-          <button
-            className="loadMore"
-            onClick={() => setVisibleArticles((prev) => prev + 10)}
-          >
-            {t('navigation.load')}
-          </button>
+
+          {visibleArticles < articles.length && (
+            <button
+              className="loadMore"
+              onClick={loadMoreArticles}
+              aria-label={t('navigation.load')}
+            >
+              {t('navigation.load')}
+            </button>
+          )}
         </>
       ) : (
-        // Fallback message if no articles are available
         <p>{t('errors.articles')}</p>
       )}
     </div>

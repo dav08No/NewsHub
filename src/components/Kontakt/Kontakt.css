@@ -1,30 +1,40 @@
 .contact-container {
   min-height: 100vh;
-  padding: clamp(20px, 6vh, 100px) 5% 60px;
+  padding: clamp(20px, 6vh, 100px) clamp(5%, 10vw, 15%) 60px;
   color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1200px;
+  max-width: 2000px;
+  /* Erhöhte maximale Breite für sehr große Bildschirme */
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .contact-header {
-  font-size: clamp(1.8rem, 4vw, 3.6rem);
+  font-size: clamp(1.8rem, 4vw, 4.5rem);
+  /* Größere maximale Schriftgröße */
   font-weight: 700;
   background: linear-gradient(90deg, #007bff, #0056b3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Standard-Eigenschaft für bessere Browser-Kompatibilität */
+  color: transparent;
+  /* Fallback für nicht unterstützende Browser */
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: clamp(30px, 6vh, 80px);
+  /* Responsiver Abstand */
   position: relative;
 }
 
 .contact-header::after {
   content: "";
   position: absolute;
-  width: 70px;
-  height: 3px;
+  width: clamp(70px, 10%, 120px);
+  /* Responsive Linienbreite */
+  height: clamp(3px, 0.4vh, 6px);
+  /* Responsive Linienhöhe */
   background: #007bff;
   bottom: -10px;
   left: 50%;
@@ -36,29 +46,41 @@
 .contact-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+  /* Responsiver Abstand zwischen Formularfeldern */
   width: 100%;
-  max-width: 600px;
+  max-width: clamp(600px, 50vw, 1000px);
+  /* Responsive maximale Breite */
 }
 
 .contact-input,
 .contact-textarea {
   background-color: #f8f9fa;
   color: #333;
-  padding: 1rem;
+  padding: clamp(1rem, 2vh, 1.5rem);
+  /* Responsives Padding */
   border: 1px solid #ced4da;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: clamp(8px, 1vw, 16px);
+  /* Responsive Border-Radius */
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+  /* Responsive Schriftgröße */
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-textarea {
+  min-height: clamp(150px, 20vh, 300px);
+  /* Responsive Höhe für Textarea */
+  resize: vertical;
 }
 
 .contact-input:focus,
 .contact-textarea:focus {
   outline: none;
   border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 clamp(8px, 1vw, 15px) rgba(0, 123, 255, 0.5);
+  /* Responsiver Schatten */
 }
 
 .contact-input::placeholder,
@@ -93,70 +115,134 @@
 }
 
 .contact-button {
-  background-color: #007bff;
+  background-color: #005fc4;
   color: white;
-  padding: 1.2rem;
-  min-height: 48px;
-  min-width: 100px;
+  padding: clamp(1rem, 2vh, 1.5rem);
+  /* Responsives Padding */
+  min-height: clamp(48px, 6vh, 64px);
+  /* Responsive minimale Höhe */
+  min-width: clamp(100px, 15%, 200px);
+  /* Responsive minimale Breite */
   border: none;
-  border-radius: 8px;
+  border-radius: clamp(8px, 1vw, 16px);
+  /* Responsive Border-Radius */
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+  /* Responsive Schriftgröße */
+  font-weight: 600;
   transition: background-color 0.3s, transform 0.3s;
+  align-self: center;
+  /* Zentriert den Button */
+  width: clamp(150px, 40%, 300px);
+  /* Responsive Breite */
 }
 
 .contact-button:hover {
-  background-color: #0056b3;
+  background-color: #0461c5;
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 95, 196, 0.3);
 }
 
 .contact-button:active {
   background-color: #003f7f;
+  transform: translateY(0);
+}
+
+/* Small Screens (Phones) */
+@media (max-width: 480px) {
+  .contact-container {
+    padding: 80px 5% 30px;
+  }
+
+  .contact-header {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .contact-form {
+    gap: 1.2rem;
+    max-width: 100%;
+  }
+
+  .contact-button {
+    width: 100%;
+  }
 }
 
 /* Medium Screens (Tablets) */
-@media (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 768px) {
   .contact-container {
     padding: 100px 5% 40px;
   }
 
   .contact-header {
     font-size: 2.2rem;
+    margin-bottom: 40px;
   }
 
   .contact-form {
     max-width: 500px;
+    gap: 1.4rem;
   }
 }
 
-/* Small Screens (Phones) */
-@media (max-width: 480px) {
-  .contact-header {
-    font-size: 1.8rem;
-  }
-
+/* Large Screens (Desktops) */
+@media (min-width: 769px) and (max-width: 1200px) {
   .contact-form {
-    max-width: 100%;
+    max-width: 600px;
   }
 }
 
-/* Large Screens */
-@media (min-width: 1200px) {
+/* Extra Large Screens */
+@media (min-width: 1201px) and (max-width: 1600px) {
   .contact-header {
     font-size: 3.2rem;
+    margin-bottom: 60px;
   }
 
   .contact-form {
     max-width: 700px;
+    gap: 2rem;
   }
 }
 
-@media (min-width: 1600px) {
+/* Super Large Screens */
+@media (min-width: 1601px) and (max-width: 2500px) {
   .contact-header {
-    font-size: 3.6rem;
+    font-size: 3.8rem;
+    margin-bottom: 70px;
   }
 
   .contact-form {
     max-width: 800px;
+    gap: 2.2rem;
+  }
+}
+
+/* Ultra Large Screens */
+@media (min-width: 2501px) {
+  .contact-container {
+    padding: clamp(100px, 8vh, 150px) 15% 80px;
+  }
+
+  .contact-header {
+    font-size: 4.5rem;
+    margin-bottom: 80px;
+  }
+
+  .contact-form {
+    max-width: 1000px;
+    gap: 2.5rem;
+  }
+
+  .contact-input,
+  .contact-textarea {
+    padding: 1.5rem;
+    font-size: 1.25rem;
+  }
+
+  .contact-button {
+    padding: 1.5rem;
+    font-size: 1.5rem;
   }
 }

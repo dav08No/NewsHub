@@ -56,7 +56,7 @@ const ChatComponent: React.FC = () => {
 
   return (
     <div className="chat-container">
-      <h2 className="chat-header">
+      <h2 className="title">
         {t('chatbot.title')}
       </h2>
 

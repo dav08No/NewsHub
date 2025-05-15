@@ -53,7 +53,7 @@ const Contact: React.FC = () => {
   };
   return (
     <div className="contact-container">
-      <h1 className="contact-header">{t('contact.title')}</h1>
+      <h1 className="title">{t('contact.title')}</h1>
       <form onSubmit={onSubmit} className="contact-form" ref={formRef}>
         {/* Input field for name */}
         <input type="text" name="name" placeholder={t('contact.name')} className="contact-input" required onChange={handleChange} />

@@ -25,9 +25,9 @@ const AboutUs = () => {
 
   return (
     <div className="container">
-      <h1 className="title-about fade-in">{t('about.title')}</h1>
+      <h1 className="title">{t('about.title')}</h1>
 
-      <section className="textTeam fade-in">
+      <section className="textTeam fade-in myMargin" >
         <h2 className="title-ourTeam">{t('about.team')}</h2>
         <p className="team-intro">
           {t('about.start')}

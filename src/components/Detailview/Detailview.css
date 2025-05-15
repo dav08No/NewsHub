@@ -7,7 +7,6 @@
   box-sizing: border-box;
 }
 
-/* Artikel-Wrapper */
 .img-article-container {
   background-color: white;
   border-radius: 12px;
@@ -21,7 +20,6 @@
   gap: 2rem;
 }
 
-/* Titel */
 .title {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 700;
@@ -32,7 +30,6 @@
   margin-bottom: 0.5rem;
 }
 
-/* Artikelbild */
 .detailview-img {
   width: 100%;
   max-height: 500px;
@@ -41,7 +38,6 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Beschreibung */
 .article-container {
   display: flex;
   justify-content: center;
@@ -58,7 +54,6 @@
   box-sizing: border-box;
 }
 
-/* Untertitel (Artikelüberschrift im Text) */
 .article-title {
   display: block;
   font-size: 1.25rem;
@@ -82,24 +77,21 @@
   box-shadow: 0 0 8px rgba(3, 81, 165, 0.5);
 }
 
-/* Beschreibungstext */
 .article-description {
   display: block;
   text-align: justify;
 }
 
-/* Link */
 .link {
   text-align: center;
   display: block;
   color: #0056b3;
   text-decoration: underline;
   font-weight: 600;
-  font-size: 1rem;
-  margin-top: 2rem;
+  font-size: 2rem;
+  margin-top: 0.8rem;
 }
 
-/* Responsive */
 @media screen and (max-width: 768px) {
   .img-article-container {
     padding: 1.5rem;
@@ -121,6 +113,7 @@
   }
 
   .link {
-    font-size: 0.95rem;
+    font-size: 1rem;
+    margin-top: 0rem;
   }
 }

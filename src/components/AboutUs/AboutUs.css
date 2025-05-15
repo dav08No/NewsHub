@@ -44,12 +44,8 @@ p {
   margin: 0 auto;
 }
 
-/* Title styles with consistent gradients */
-.title-about {
-  font-size: clamp(2rem, 5vw, 2.8rem);
-  font-weight: 700;
-  background: var(--gradient-primary);
-  margin-bottom: 50px;
+.myMargin {
+  margin-top: 2%;
 }
 
 .title-ourTeam,
