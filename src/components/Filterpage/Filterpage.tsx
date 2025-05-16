@@ -59,7 +59,7 @@ const Filterpage: React.FC = () => {
   const [articles, setArticles] = useState<ArticleType[]>([]); // Gefundene Artikel
   const [isLoading, setIsLoading] = useState<boolean>(false); // Ladeanzeige
   const [hasFilter, setHasFilter] = useState<boolean>(false);
-  const [visibleCount, setVisibleCount] = useState(10);
+  const [visibleCount, setVisibleCount] = useState(20);
   const { t, i18n } = useTranslation(); // Lokalisierung
 
   // Daten aus JSON-Dateien laden und umwandeln
