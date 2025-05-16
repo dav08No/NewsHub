@@ -1,4 +1,3 @@
-/* Loader animation styles */
 .loader {
   position: absolute;
   top: 50%;
@@ -87,7 +86,6 @@
   }
 }
 
-/* Main container */
 .homepage-container {
   width: 100%;
   max-width: 1600px;
@@ -98,7 +96,6 @@
 
 .title {
   font-size: clamp(2.5rem, 6vw, 4.8rem) !important;
-  /* Etwas kleiner als zuvor */
   font-weight: 800;
   background: linear-gradient(90deg, #007bff, #0056b3);
   -webkit-background-clip: text;
@@ -121,7 +118,6 @@
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
-/* Grid Layout for Articles */
 .articles-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -130,7 +126,6 @@
   margin: clamp(1rem, 3vw, 2rem) 0;
 }
 
-/* Article containers */
 .article-link {
   text-decoration: none;
   color: inherit;
@@ -160,7 +155,6 @@
   width: 100%;
   height: 0;
   padding-bottom: 56.25%;
-  /* 16:9 aspect ratio */
 }
 
 .article-img {
@@ -186,7 +180,6 @@
   z-index: 2;
 }
 
-/* Article content */
 .article-content {
   padding: clamp(0.8rem, 2vw, 1.5rem);
   flex-grow: 1;
@@ -215,14 +208,12 @@
   margin-top: auto;
 }
 
-/* Load more button */
 .loadMore {
   display: block;
   width: 200px;
   margin: 2rem auto;
   padding: 0.8rem 1.5rem;
   background-color: #0056b3;
-  /* Neue Farbe */
   color: white;
   border: none;
   border-radius: 5px;
@@ -234,10 +225,8 @@
 
 .loadMore:hover {
   background-color: #004494;
-  /* Dunklere Hover-Variante */
 }
 
-/* Media queries for responsive design */
 @media screen and (max-width: 480px) {
   .homepage-container {
     padding: 0 0.8rem;

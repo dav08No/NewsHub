@@ -104,6 +104,8 @@ const Homepage: React.FC = () => {
             if (response.status === 429) {
               console.warn(`Rate limit reached for API key ${apiKey}`);
               break;
+            } else if (response.status === 200) {
+              console.info(`${response.status} Erfolgreich Artikel geladen`);
             }
 
             const data = await response.json();

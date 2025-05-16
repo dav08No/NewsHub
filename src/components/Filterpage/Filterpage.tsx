@@ -140,7 +140,7 @@ const Filterpage: React.FC = () => {
     // Artikel filtern, normalisieren und übersetzen
     for (
       let i = 0;
-      i < fetchedArticles.length && finalArticles.length < 25;
+      i < fetchedArticles.length && finalArticles.length < 60;
       i++
     ) {
       const article = fetchedArticles[i];
